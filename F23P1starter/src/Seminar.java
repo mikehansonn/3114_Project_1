@@ -23,7 +23,7 @@ public class Seminar implements Serializable {
 
     // ----------------------------------------------------------
     /**
-     * Dummy seminar constructor 2dsd2
+     * Dummy seminar constructor 2dsd2d
      */ 
     public Seminar() {
         // Nothing here
