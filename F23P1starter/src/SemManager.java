@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * The class containing the main method.
  *
- * @author {Your Name Here} Matt02
+ * @author {Your Name Here}
  * @version {Put Something Here}
  */
 
