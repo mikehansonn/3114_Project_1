@@ -73,6 +73,9 @@ public class SemManager {
                     //call the delete(splitStrings[1])
                     inSearch = true;
                 }
+                else if(inSearch) {
+                	
+                }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
                     System.out.println(splitStrings[1]);
