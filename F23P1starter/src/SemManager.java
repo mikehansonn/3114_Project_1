@@ -66,7 +66,7 @@ public class SemManager {
                         counter++;
                     }
                     //call the insert(data)
-                    counter = 0;
+                    counter = 1;
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
