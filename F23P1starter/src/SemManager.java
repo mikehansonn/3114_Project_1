@@ -50,7 +50,7 @@ public class SemManager {
             boolean inSearch = false;
 
             while(reader.hasNextLine()) {
-                String string = reader.nextLine();
+                String string = reader.nextLine().trim(); 
                 
                 if(string.length() == 0) {
                     //do nothing, this is a whitespace line
@@ -62,7 +62,7 @@ public class SemManager {
                     inSearch = true;
                 }
                 else if(inSearch) {
-                    
+                	
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
