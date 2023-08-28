@@ -48,9 +48,21 @@ public class SemManager {
             Scanner reader = new Scanner(file);
 
             boolean inSearch = false;
+            String inSearchString = "";
 
-            while(reader.hasNextLine()) {
-                String string = reader.nextLine();
+            while(reader.hasNextLine()) { 
+                String string = reader.nextLine().trim(); 
+                if(inSearch) {
+                    if(string.startsWith("insert") || string.startsWith("delete")
+                        || string.startsWith("search") || string.startsWith("print")) {
+                        System.out.println(inSearchString);
+                        inSearch = false;
+                        inSearchString = "";    
+                    }
+                    else {
+                        inSearchString += string;
+                    }
+                }
                 
                 if(string.length() == 0) {
                     //do nothing, this is a whitespace line
@@ -60,9 +72,6 @@ public class SemManager {
                     System.out.println(splitStrings[1]);
                     //call the delete(splitStrings[1])
                     inSearch = true;
-                }
-                else if(inSearch) {
-                    
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
