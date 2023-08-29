@@ -6,7 +6,7 @@
 /**
  * The class containing the main method.
  *
- * @author Mike Hanson, Matt Stewert
+ * @author Mike Hanson, Matt Stewart
  * @version {Put Something Here}
  */
 
@@ -29,6 +29,9 @@
 //   during the discussion. I have violated neither the spirit nor
 //   letter of this restriction.
 
+//sem manager -> command parser
+//               -> implement DB -> Index Structure -> Hash Table
+//                               -> Storage, Memory Manager
 
 public class SemManager {
     /**

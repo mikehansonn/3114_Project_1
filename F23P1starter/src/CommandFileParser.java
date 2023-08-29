@@ -51,7 +51,7 @@ public class CommandFileParser {
                     //call the print(splitStrings[1])
                 }
                 else {
-                    //go to the next line
+                    //this is not a valid command
                 }
             }
 
