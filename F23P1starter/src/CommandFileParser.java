@@ -18,7 +18,7 @@ public class CommandFileParser {
 
             while(reader.hasNextLine()) { 
                 String string = reader.nextLine().trim(); 
-                
+                 
                 if(string.length() == 0) {
                     //do nothing, this is a whitespace line
                 }
@@ -34,6 +34,12 @@ public class CommandFileParser {
                     }
                     //call the insert(data)
                     counter = 1;
+
+                    String[] splitTraits = data[2].split("\\s+");
+                    Seminar sem = new Seminar(Integer.valueOf(data[0]), data[1], splitTraits[0],
+                                             Integer.valueOf(splitTraits[1]), Short.parseShort(splitTraits[2]), 
+                                             Short.parseShort(splitTraits[3]), Integer.valueOf(splitTraits[4]), 
+                                             data[3].split("\\s+"), data[4]);
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
