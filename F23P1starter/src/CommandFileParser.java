@@ -2,10 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class FileParser {
+public class CommandFileParser {
     private String fileName;
 
-    public FileParser(String fileName) {
+    public CommandFileParser(String fileName) {
         this.fileName = fileName;
     }
 
