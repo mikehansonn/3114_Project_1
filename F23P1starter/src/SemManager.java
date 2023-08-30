@@ -42,7 +42,7 @@ public class SemManager {
     public static void main(String[] args) {
         // This is the main file for the program.
         // commands = insert, delete, search, print 
-        CommandFileParser parser = new CommandFileParser(args[0]);
+        CommandFileParser parser = new CommandFileParser("P1Sample_input.txt");
         parser.readCommands();
     }
 }

@@ -18,28 +18,30 @@ public class CommandFileParser {
 
             while(reader.hasNextLine()) { 
                 String string = reader.nextLine().trim(); 
-                
+                 
                 if(string.length() == 0) {
                     //do nothing, this is a whitespace line
                 }
                 else if(string.startsWith("insert")) {
-                	String[] splitStrings = string.split("\\s+"); //insert number will be in splitStrings[1]
-                    int idin = Integer.parseInt(splitStrings[1]);
-                    String tin = reader.nextLine().trim();
-
-                    String[] data = reader.nextLine().trim().split("\\s+");
-                    String datein = data[0];
-                    int lin = Integer.parseInt(data[1]);
-                    short xin = Short.parseShort(data[2]);
-                    short yin = Short.parseShort(data[3]);
-                    int cin = Integer.parseInt(data[4]);
-
-                    String[] kin = reader.nextLine().trim().split("\\s+");
-                    String descin = reader.nextLine().trim();
-
-                    Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
-                    //Prints the Seminar Object
-                    System.out.println(seminar); // Will call the seminars toString() method
+					String[] splitStrings = string.split("\\s+"); //insert number will be in splitStrings[1]
+					int idin = Integer.parseInt(splitStrings[1]);
+					
+					String tin = reader.nextLine().trim();
+					
+					String[] data = reader.nextLine().trim().split("\\s+");
+					String datein = data[0];
+					int lin = Integer.parseInt(data[1]);
+					short xin = Short.parseShort(data[2]);
+					short yin = Short.parseShort(data[3]);
+					int cin = Integer.parseInt(data[4]);
+					
+					String[] kin = reader.nextLine().trim().split("\\s+");
+					String descin = reader.nextLine().trim();
+					
+					Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
+					
+					//Prints the Seminar Object
+					System.out.println(seminar); // Will call the seminars toString() method
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 

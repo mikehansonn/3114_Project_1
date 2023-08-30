@@ -44,15 +44,15 @@ public class Seminar implements Serializable {
      */
     public Seminar(int idin, String tin, String datein, int lin, short xin,
         short yin, int cin, String[] kin, String descin) {
-        id = idin;
-        title = tin;
-        date = datein;
-        length = lin;
-        x = xin;
-        y = yin;
-        cost = cin;
-        keywords = kin;
-        desc = descin;
+        id = idin;      //index 0 int
+        title = tin;    //index 1 String
+        date = datein;  //index 2, split(index[0]) String
+        length = lin;   //index 2, split(index[1]) int
+        x = xin;        //index 2, split(index[2]) short
+        y = yin;        //index 2, split(index[3]) short
+        cost = cin;     //index 2, split(index[4]) int
+        keywords = kin; //index 3 String[]
+        desc = descin;  //index 4 String
     }
 
     // ----------------------------------------------------------

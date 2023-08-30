@@ -20,7 +20,7 @@ public class SeminarTest extends TestCase {
      * Check the toString method
      */
     public void testtoString()
-    {
+    { 
         String[] keywords = {"Good", "Bad", "Ugly"};
         String expected = "ID: 1729, Title: Seminar Title\n"
             + "Date: 2405231000, Length: 75, X: 15, Y: 33, Cost: 125\n"
