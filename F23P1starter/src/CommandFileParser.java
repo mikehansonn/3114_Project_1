@@ -23,17 +23,23 @@ public class CommandFileParser {
                     //do nothing, this is a whitespace line
                 }
                 else if(string.startsWith("insert")) {
-                    String[] splitStrings = string.split("\\s+"); //insert number will be in splitStrings[1] 
-                    System.out.println(splitStrings[1]);
-                    String[] data = { splitStrings[1], "", "", "", "" };
+                	String[] splitStrings = string.split("\\s+"); //insert number will be in splitStrings[1]
+                    int idin = Integer.parseInt(splitStrings[1]);
+                    String tin = reader.nextLine().trim();
 
-                    while(counter < 5) {
-                        data[counter] = reader.nextLine().trim();
-                        System.out.println(data[counter]);
-                        counter++;
-                    }
-                    //call the insert(data)
-                    counter = 1;
+                    String[] data = reader.nextLine().trim().split("\\s+");
+                    String datein = data[0];
+                    int lin = Integer.parseInt(data[1]);
+                    short xin = Short.parseShort(data[2]);
+                    short yin = Short.parseShort(data[3]);
+                    int cin = Integer.parseInt(data[4]);
+
+                    String[] kin = reader.nextLine().trim().split("\\s+");
+                    String descin = reader.nextLine().trim();
+
+                    Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
+                    //Prints the Seminar Object
+                    System.out.println(seminar); // Will call the seminars toString() method
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
