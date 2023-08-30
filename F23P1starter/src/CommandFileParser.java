@@ -41,7 +41,7 @@ public class CommandFileParser {
 					Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
 					
 					//Prints the Seminar Object
-					System.out.println(seminar); // Will call the seminars toString() method
+					System.out.println(seminar.toString()); // Will call the seminars toString() method
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
