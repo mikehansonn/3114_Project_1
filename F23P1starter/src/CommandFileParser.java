@@ -14,8 +14,6 @@ public class CommandFileParser {
             File file = new File(fileName);
             Scanner reader = new Scanner(file);
 
-            int counter = 1;
-
             while(reader.hasNextLine()) { 
                 String string = reader.nextLine().trim(); 
                  
