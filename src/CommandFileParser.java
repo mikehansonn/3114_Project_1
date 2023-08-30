@@ -8,7 +8,7 @@ public class CommandFileParser {
     public CommandFileParser(String fileName) {
         this.fileName = fileName;
     }
-
+ 
     public void readCommands() {
         try {
             File file = new File(fileName);
