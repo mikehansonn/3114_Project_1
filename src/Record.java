@@ -1,6 +1,6 @@
 public class Record {
     private int length; // Length of the byte array
-    private int startPosition; // Starting position of the array in some external storage
+    private int startPosition; // Starting position in the Memory Manager Array
 
     // Constructor
     public Record(int length, int startPosition) {

@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 public class CommandFileParser {
     private String fileName;
+    private SemManager semManager;
 
-    public CommandFileParser(String fileName) {
+    public CommandFileParser(String fileName, SemManager semManager) {
         this.fileName = fileName;
+        this.semManager = semManager;
+
     }
  
     public void readCommands() { 
@@ -39,7 +42,13 @@ public class CommandFileParser {
 					Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
 					
 					//Prints the Seminar Object
-					System.out.println(seminar.toString()); // Will call the seminars toString() method
+					System.out.println(seminar.toString()); 
+					
+					 // Delegate the handling of the Seminar object to SemManager
+		            semManager.insertSeminar(idin ,seminar);
+
+					
+
                 }
                 else if(string.startsWith("delete")) {
                     String[] splitStrings = string.split("\\s+"); //delete number will be in splitStrings[1] 
