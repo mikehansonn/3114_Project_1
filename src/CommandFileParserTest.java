@@ -7,7 +7,7 @@ public class CommandFileParserTest {
 	private CommandFileParser parser;
 	@Before
 	public void setUp() throws Exception {
-		parser = new CommandFileParser("P1Sample_input.txt");
+	
 	}
 
 	@Test

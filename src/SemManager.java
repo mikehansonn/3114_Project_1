@@ -37,9 +37,9 @@ public class SemManager {
 	private HashTable hashTable;
     private MemManager memoryManager;
 
-    public SemManager() {
+    public SemManager(int poolSize) {
        hashTable = new HashTable();
-       memoryManager = new MemManager();
+       memoryManager = new MemManager(poolSize);
     }
 
     public void insertSeminar(int id, Seminar seminar)  {
@@ -61,7 +61,7 @@ public class SemManager {
     	
         // This is the main file for the program.
         // commands = insert, delete, search, print 
-    	SemManager semManager = new SemManager();
+    	SemManager semManager = new SemManager(initialMemorySize);
         CommandFileParser parser = new CommandFileParser(args[2], semManager);
         parser.readCommands();
     }
