@@ -45,7 +45,7 @@ public class CommandFileParser {
 					System.out.println(seminar.toString()); 
 					
 					 // Delegate the handling of the Seminar object to SemManager
-		            semManager.insertSeminar(idin ,seminar);
+		            semManager.insertSeminar(idin , seminar);
 
 					
 
