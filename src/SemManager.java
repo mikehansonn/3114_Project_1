@@ -35,11 +35,11 @@
 
 public class SemManager {
 	private HashTable hashTable;
-    private MemoryManager memoryManager;
+    private MemManager memoryManager;
 
     public SemManager() {
        hashTable = new HashTable();
-       memoryManager = new MemoryManager();
+       memoryManager = new MemManager();
     }
 
     public void insertSeminar(int id, Seminar seminar)  {
@@ -56,10 +56,13 @@ public class SemManager {
      *     args[2] holds the read file
      */
     public static void main(String[] args) {
+    	int initialMemorySize = Integer.parseInt(args[0]);
+    	int initialHashSize = Integer.parseInt(args[1]);
+    	
         // This is the main file for the program.
         // commands = insert, delete, search, print 
     	SemManager semManager = new SemManager();
-        CommandFileParser parser = new CommandFileParser("P1Sample_input.txt", semManager);
+        CommandFileParser parser = new CommandFileParser(args[2], semManager);
         parser.readCommands();
     }
 }
