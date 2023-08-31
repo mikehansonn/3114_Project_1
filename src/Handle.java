@@ -1,9 +1,9 @@
-public class Record {
+public class Handle {
     private int length; // Length of the byte array
     private int startPosition; // Starting position in the Memory Manager Array
 
     // Constructor
-    public Record(int length, int startPosition) {
+    public Handle(int length, int startPosition) {
         this.length = length;
         this.startPosition = startPosition;
     }
