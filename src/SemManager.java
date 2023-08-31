@@ -34,6 +34,22 @@
 //                               -> Storage, Memory Manager
 
 public class SemManager {
+	private HashTable hashTable;
+    private MemoryManager memoryManager;
+
+    public SemManager() {
+       hashTable = new HashTable();
+       memoryManager = new MemoryManager();
+    }
+
+    public void insertSeminar(int id, Seminar seminar)  {
+  
+
+   }
+
+	
+	
+	
     /**
      * @param args
      *     Command line parameters
@@ -42,7 +58,8 @@ public class SemManager {
     public static void main(String[] args) {
         // This is the main file for the program.
         // commands = insert, delete, search, print 
-        CommandFileParser parser = new CommandFileParser("P1Sample_input.txt");
+    	SemManager semManager = new SemManager();
+        CommandFileParser parser = new CommandFileParser("P1Sample_input.txt", semManager);
         parser.readCommands();
     }
 }
