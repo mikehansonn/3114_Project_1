@@ -9,7 +9,7 @@ public class CommandFileParser {
         this.fileName = fileName;
     }
  
-    public void readCommands() {
+    public void readCommands() { 
         try {
             File file = new File(fileName);
             Scanner reader = new Scanner(file);
