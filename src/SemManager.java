@@ -34,11 +34,11 @@
 //                               -> Storage, Memory Manager
 
 public class SemManager {
-	private HashTable hashTable;
+	private HashTable<Integer, String> hashTable;
     private MemManager memoryManager;
 
-    public SemManager(int poolSize) {
-       hashTable = new HashTable();
+    public SemManager(int poolSize, int hashSize) {
+       hashTable = new HashTable<>(hashSize);
        memoryManager = new MemManager(poolSize);
     }
 
@@ -61,7 +61,7 @@ public class SemManager {
     	
         // This is the main file for the program.
         // commands = insert, delete, search, print 
-    	SemManager semManager = new SemManager(initialMemorySize);
+    	SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
         CommandFileParser parser = new CommandFileParser(args[2], semManager);
         parser.readCommands();
     }

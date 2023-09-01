@@ -1,24 +1,6 @@
 
 
-public class HashTable<Integer, V> {
-	private static class Entry<Integer, V> {
-		private int key;
-		private V value;
-		
-		public Entry(int key, V value) {
-			this.key = key;
-			this.value = value;
-		}
-		
-		public int getKey() {
-			return key;
-		}
-		
-		public V getValue() {
-			return value;
-		}
-	}
-	
+public class HashTable<K, V> {
 	private int capacity; // the total amount we can go
 	private Entry<Integer, V>[] table;
 	private int size; // the current number of elements inside
@@ -39,14 +21,16 @@ public class HashTable<Integer, V> {
 
 		while(table[hash1] != null) {
 			if(table[hash1].getKey() == key) {
-				return;
-			}
+				System.out.println("Insert FAILED - There is already a record with ID " + key);
+				return; //this record already exists
+			}	
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
 
 		table[hash1] = new Entry<>(key, value);
 		size++;
+		System.out.println("Successfully inserted record with ID " + key);
 	}
 
 	public V get(int key) {
@@ -92,11 +76,47 @@ public class HashTable<Integer, V> {
 	private void rehash() {
 		Entry<Integer, V>[] smallTable = table;
 		table = new Entry[smallTable.length * 2];
+		size = 0;
 
 		for(Entry<Integer, V> entry : smallTable) {
 			if(entry != null) {
 				put(entry.getKey(), entry.getValue());
 			}
+		}
+	}
+	
+	public String toString() {
+		String ret = "";
+		
+		for(int i = 0; i < table.length; i++) {
+			if(table[i] != null) {
+				String add = "Key : " + table[i].getKey() +
+							 ", Value: " + table[i].getValue() + "\n";
+				ret += add;
+			}
+			else {
+				ret += "null\n";
+			}
+		}
+		
+		return ret;
+	}
+
+	private static class Entry<K, V> {
+		private K key;
+		private V value;
+		
+		public Entry(K key, V value) {
+			this.key = key;
+			this.value = value;
+		}
+		
+		public K getKey() {
+			return key;
+		}
+		
+		public V getValue() {
+			return value;
 		}
 	}
 }
