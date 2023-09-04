@@ -90,12 +90,12 @@ public class HashTable<K, V> {
 		
 		for(int i = 0; i < table.length; i++) {
 			if(table[i] != null) {
-				String add = "Key : " + table[i].getKey() +
+				String add = i + ": Key : " + table[i].getKey() +
 							 ", Value: " + table[i].getValue() + "\n";
 				ret += add;
 			}
 			else {
-				ret += "null\n";
+				ret += i + ": null\n";
 			}
 		}
 		

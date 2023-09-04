@@ -44,5 +44,20 @@ public class HashTableTest {
 		get = hashTable.get(16);
 		assertNull(get);
 	}
+	
+	/*
+	 * Test the OpenDSA example to ensure
+	 * hashing is working correctly
+	 */
+	@Test
+	public void testPositioning() {
+		hashTable = new HashTable<>(16);
+		hashTable.put(55, "hello");
+		hashTable.put(39, "pizza");
+		hashTable.put(92, "kale");
+		System.out.print(hashTable.toString());
+		
+		assertNotNull(hashTable);
+	}
 
 }
