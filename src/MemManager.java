@@ -1,10 +1,12 @@
 
 public class MemManager {
 	private int poolsize; 
+	private byte[] memoryPool; 
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
 	public MemManager(int poolsize) {
 		this.poolsize = poolsize; 
+		this.memoryPool = new byte[poolsize]; 
 	}
 	
 	// Insert a record and return its position handle.
