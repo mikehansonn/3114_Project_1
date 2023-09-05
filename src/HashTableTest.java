@@ -51,10 +51,11 @@ public class HashTableTest {
 	 */
 	@Test
 	public void testPositioning() {
-		hashTable = new HashTable<>(16);
-		hashTable.put(55, "hello");
-		hashTable.put(39, "pizza");
-		hashTable.put(92, "kale");
+		hashTable = new HashTable<>(8);
+		hashTable.put(1, "hello");
+		hashTable.put(2, "pizza");
+		hashTable.put(3, "kale");
+		hashTable.put(10, "check");
 		System.out.print(hashTable.toString());
 		
 		assertNotNull(hashTable);

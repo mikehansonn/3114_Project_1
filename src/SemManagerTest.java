@@ -18,7 +18,7 @@ public class SemManagerTest extends TestCase {
      */
     public void testMInitx()
     {
-        SemManager sem = new SemManager();
+        SemManager sem = new SemManager(8, 8);
         assertNotNull(sem);
         SemManager.main(null);
     }

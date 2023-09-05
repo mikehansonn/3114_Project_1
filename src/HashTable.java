@@ -86,18 +86,15 @@ public class HashTable<K, V> {
 	}
 	
 	public String toString() {
-		String ret = "";
+		String ret = "Hashtable:\n";
 		
 		for(int i = 0; i < table.length; i++) {
 			if(table[i] != null) {
-				String add = i + ": Key : " + table[i].getKey() +
-							 ", Value: " + table[i].getValue() + "\n";
+				String add = i + ": " + table[i].getKey() + "\n";
 				ret += add;
 			}
-			else {
-				ret += i + ": null\n";
-			}
 		}
+		ret += "total records: " + size + "\n";
 		
 		return ret;
 	}
