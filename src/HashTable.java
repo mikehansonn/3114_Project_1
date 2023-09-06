@@ -1,4 +1,4 @@
-
+@SuppressWarnings("unchecked")
 
 public class HashTable<K, V> {
 	private int capacity; // the total amount we can go
@@ -7,7 +7,7 @@ public class HashTable<K, V> {
 	
 	public HashTable(int capacity) {
 		this.capacity = capacity;
-		this.table = new Entry[capacity];
+		this.table = (Entry<Integer, V>[]) new Entry[capacity];
 		this.size = 0;
 	}
 
