@@ -18,18 +18,18 @@ public class FreeList {
     }
     
     // Constructor initializes the array and adds the initial block
-    public FreeList(int maxPower, int initialStartPosition) {
+    public FreeList(int maxPower) {
     	this.maxPower = maxPower;
         this.freeListArray = new Node[maxPower + 1];
         
         // Assuming memory starts off as one large free block
-        this.freeListArray[maxPower] = new Node(initialStartPosition, 1 << maxPower);
+        this.freeListArray[maxPower] = new Node(0, 1 << maxPower);
     }
     
         
     
     // Method to add a block back into the free list
-    public void addBlock(int sizePower, int startPosition) {
+    public void addBlock(int sizePower) {
     	 
     	// Check if an appropriate block of memory exists in the free list at index k
         Node currNode = freeListArray[sizePower];
@@ -68,12 +68,37 @@ public class FreeList {
                 return;
             }
         }
-      
+        
+        // Need to update to double memeory space. 
+        
         // No blocks available to allocate
         System.out.println("Out of memory");
      
         
     }
+    
+    
+    public void doubleMemory() {
+        // Increase the maxPower
+        maxPower += 1;
+
+        // Extend the freeListArray
+        Node[] newFreeListArray = new Node[maxPower + 1];
+        System.arraycopy(freeListArray, 0, newFreeListArray, 0, freeListArray.length);
+        freeListArray = newFreeListArray;
+
+        // Calculate the starting position of the new free block. It's the end of the old array.
+        int newBlockStartPosition = 1 << (maxPower - 1);
+
+        // Create a new Node for the new free block
+        Node newBlock = new Node(newBlockStartPosition, 1 << maxPower);
+
+        // Add this block to the free list array
+        freeListArray[maxPower] = newBlock;
+    }
+
+    
+    
     
     
     
