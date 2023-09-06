@@ -5,7 +5,7 @@ public class MemManager {
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
 	public MemManager(int poolsize) {
-		this.poolsize = poolsize; 
+		this.poolsize = poolsize;  
 		this.memoryPool = new byte[poolsize]; 
 	}
 	
