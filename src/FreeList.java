@@ -76,13 +76,10 @@ public class FreeList {
     }
     
     public void deallocateBlock(int sizePower, int startPosition) {
-    	Node newNode = new Node(startPosition, 1 << sizePower);
-        newNode.next = freeListArray[sizePower];
-        freeListArray[sizePower] = newNode;
+        Node newNode = new Node(startPosition, 1 << sizePower);
         
         // Check for a buddy to merge
         while (sizePower < maxPower) {
-  
             int buddyStartPos = startPosition ^ (1 << sizePower);
             Node prev = null, curr = freeListArray[sizePower];
             
@@ -94,30 +91,29 @@ public class FreeList {
                         prev.next = curr.next;
                     }
                     
-                    // Remove the original block as well
-                    freeListArray[sizePower] = freeListArray[sizePower].next;
-
-                    
                     // Merge the blocks
                     startPosition = Math.min(startPosition, buddyStartPos);
-                    sizePower++; 
+                    sizePower++;
                     
-                    // Add the merged block back
-                    newNode = new Node(startPosition, 1 << sizePower);
-                    newNode.next = freeListArray[sizePower];
-                    freeListArray[sizePower] = newNode;
-                    
+                    // Exit the current while loop to check if the newly merged block has a buddy
                     break;
                 }
                 prev = curr;
                 curr = curr.next;
             }
             
+            // If there was no buddy found, break out of the while loop
             if (curr == null) {
                 break;
             }
         }
+        
+        // Add the block (merged or original) back into the free list after checking for all potential buddies
+        newNode = new Node(startPosition, 1 << sizePower);
+        newNode.next = freeListArray[sizePower];
+        freeListArray[sizePower] = newNode;
     }
+
     
     public void doubleMemory() {
         // Increase the maxPower

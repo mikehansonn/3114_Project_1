@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class FreeListTest {
 	
-	private FreeList freeList;
+	private FreeList freeList; 
 
 	@Before 
     public void setUp() throws Exception {
@@ -14,7 +14,7 @@ public class FreeListTest {
 	
 	@Test
 	public void testAddBlock() {
-		freeList.addBlock(2);
+		freeList.addBlock(2); 
 		freeList.addBlock(4);
 		
 		assertNotNull(freeList);
