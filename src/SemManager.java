@@ -34,38 +34,13 @@ import java.io.FileNotFoundException;
 //sem manager -> command parser
 //               -> implement DB -> Index Structure -> Hash Table
 //                               -> Storage, Memory Manager
-
 public class SemManager {
-	private HashTable<Integer, String> hashTable;
-    private MemManager memoryManager;
-
-    public SemManager(int poolSize, int hashSize) {
-       hashTable = new HashTable<>(hashSize);
-       memoryManager = new MemManager(poolSize);
-    }
-
-    public void insertSeminar(int id, Seminar seminar)  {
-  
-
-   }
-
-	
-	
-	
     /**
      * @param args
      *     Command line parameters
-     *     args[2] holds the read file
-     * @throws FileNotFoundException 
      */
-    public static void main(String[] args) throws FileNotFoundException {
-    	int initialMemorySize = Integer.parseInt(args[0]);
-    	int initialHashSize = Integer.parseInt(args[1]);
-    	
+    public static void main(String[] args) {
         // This is the main file for the program.
-        // commands = insert, delete, search, print 
-    	SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
-        CommandFileParser parser = new CommandFileParser(args[2], semManager);
-        parser.readCommands();
+        Seminar dum = new Seminar();
     }
 }

@@ -19,7 +19,7 @@ public class HashTable<K, V> {
 		int hash1 = hash1(key);
 		int hash2 = hash2(key);
 
-		while (table[hash1] != null) {
+		while (table[hash1] != null && !table[hash1].getIsDeleted()) {
 			if (table[hash1].getKey() == key) {
 				System.out.println("Insert FAILED - There is already a record with ID " + key);
 				return; // this record already exists
@@ -38,7 +38,7 @@ public class HashTable<K, V> {
 		int hash2 = hash2(key);
 
 		while (table[hash1] != null) {
-			if (table[hash1].getKey() == key) {
+			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
 				return table[hash1].getValue();
 			}
 
@@ -53,10 +53,9 @@ public class HashTable<K, V> {
 		int hash2 = hash2(key);
 
 		while (table[hash1] != null) {
-			if (table[hash1].getKey() == key) {
-				table[hash1] = null;
+			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
+				table[hash1].delete();
 				size--;
-
 				return;
 			}
 
@@ -79,7 +78,7 @@ public class HashTable<K, V> {
 		size = 0;
 
 		for (Entry<Integer, V> entry : smallTable) {
-			if (entry != null) {
+			if (entry != null && !entry.getIsDeleted()) {
 				put(entry.getKey(), entry.getValue());
 			}
 		}
@@ -90,8 +89,13 @@ public class HashTable<K, V> {
 
 		for (int i = 0; i < table.length; i++) {
 			if (table[i] != null) {
-				String add = i + ": " + table[i].getKey() + "\n";
-				ret += add;
+				if (table[i].getIsDeleted()) {
+					String add = i + ": " + "TOMBSTONE" + "\n";
+					ret += add;
+				} else {
+					String add = i + ": " + table[i].getKey() + "\n";
+					ret += add;
+				}
 			}
 		}
 		ret += "total records: " + size + "\n";

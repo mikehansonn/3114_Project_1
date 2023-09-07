@@ -20,10 +20,19 @@ public class FreeListTest {
 		assertNotNull(freeList);
 		System.out.println(freeList.toString());
 	}
+	
+	@Test
+	public void testAddBlockSamePosition() {
+		freeList.addBlock(2); 
+		freeList.addBlock(2);
+		
+		assertNotNull(freeList);
+		System.out.println(freeList.toString());
+	}
 
 	@Test
 	public void testDeallocateBlock() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test

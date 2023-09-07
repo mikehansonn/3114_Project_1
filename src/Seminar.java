@@ -16,7 +16,7 @@ public class Seminar implements Serializable {
     private int length; // Seminar length
     private String[] keywords; // Seminar keywords
     private short x; // Seminar x coord
-    private short y; // Seminar y 
+    private short y; // Seminar y coord
     private String desc; // Seminar description
     private int cost; // Seminar cost
     private int id; // Seminar ID
@@ -24,7 +24,7 @@ public class Seminar implements Serializable {
     // ----------------------------------------------------------
     /**
      * Dummy seminar constructor
-     */ 
+     */
     public Seminar() {
         // Nothing here
     }
@@ -44,15 +44,15 @@ public class Seminar implements Serializable {
      */
     public Seminar(int idin, String tin, String datein, int lin, short xin,
         short yin, int cin, String[] kin, String descin) {
-        id = idin;      //index 0 int
-        title = tin;    //index 1 String
-        date = datein;  //index 2, split(index[0]) String
-        length = lin;   //index 2, split(index[1]) int
-        x = xin;        //index 2, split(index[2]) short
-        y = yin;        //index 2, split(index[3]) short
-        cost = cin;     //index 2, split(index[4]) int
-        keywords = kin; //index 3 String[]
-        desc = descin;  //index 4 String
+        id = idin;
+        title = tin;
+        date = datein;
+        length = lin;
+        x = xin;
+        y = yin;
+        cost = cin;
+        keywords = kin;
+        desc = descin;
     }
 
     // ----------------------------------------------------------
