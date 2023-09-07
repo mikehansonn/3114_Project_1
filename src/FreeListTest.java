@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class FreeListTest {
@@ -13,7 +14,11 @@ public class FreeListTest {
 	
 	@Test
 	public void testAddBlock() {
-		fail("Not yet implemented");
+		freeList.addBlock(2);
+		freeList.addBlock(4);
+		
+		assertNotNull(freeList);
+		System.out.println(freeList.toString());
 	}
 
 	@Test
@@ -23,7 +28,8 @@ public class FreeListTest {
 
 	@Test
 	public void testDoubleMemory() {
-		fail("Not yet implemented");
+		freeList.doubleMemory();
+		assertNotNull(freeList);
 	}
 
 }

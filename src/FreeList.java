@@ -100,7 +100,7 @@ public class FreeList {
                     
                     // Merge the blocks
                     startPosition = Math.min(startPosition, buddyStartPos);
-                    sizePower++;
+                    sizePower++; 
                     
                     // Add the merged block back
                     newNode = new Node(startPosition, 1 << sizePower);
@@ -139,5 +139,18 @@ public class FreeList {
     }
 
     
-    
+    public String toString() {
+    	String ret = "";
+    	
+    	for(int i = 0; i < freeListArray.length; i++) {
+    		Node node = freeListArray[i];
+    		while(node != null) {
+    			ret += node.startPosition + ", ";
+    			node = node.next;
+    		}
+    		ret += "\n";
+    	}
+    	
+    	return ret;
+    }
 }
