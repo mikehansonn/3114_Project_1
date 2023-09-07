@@ -3,6 +3,8 @@
  * {Project Description Here}
  */
 
+import java.io.FileNotFoundException;
+
 /**
  * The class containing the main method.
  *
@@ -54,8 +56,9 @@ public class SemManager {
      * @param args
      *     Command line parameters
      *     args[2] holds the read file
+     * @throws FileNotFoundException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
     	int initialMemorySize = Integer.parseInt(args[0]);
     	int initialHashSize = Integer.parseInt(args[1]);
     	

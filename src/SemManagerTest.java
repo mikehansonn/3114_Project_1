@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 import student.TestCase;
 
 /**
@@ -15,8 +17,9 @@ public class SemManagerTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
+     * @throws FileNotFoundException 
      */
-    public void testMInitx()
+    public void testMInitx() throws FileNotFoundException
     {
         SemManager sem = new SemManager(8, 8);
         assertNotNull(sem);
