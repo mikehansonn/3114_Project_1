@@ -29,7 +29,7 @@ public class FreeList {
         
     // change this to return a handle
     // Method to add a block back into the free list
-    public void addBlock(int sizePower) {
+    public int addBlock(int sizePower) {
     	 
     	// Check if an appropriate block of memory exists in the free list at index k
         Node currNode = freeListArray[sizePower];
@@ -38,7 +38,7 @@ public class FreeList {
         if (currNode != null) {
             freeListArray[sizePower] = currNode.next;  // Remove head of list
             // Here, 'currNode' can be marked as allocated.
-            return;
+            return currNode.startPosition; // return startPosition of allocated block
         }
         
         // If we didn't find a block of appropriate size,
@@ -49,6 +49,7 @@ public class FreeList {
                 // Remove the block from the free list
                 Node largeBlock = freeListArray[i];
                 freeListArray[i] = largeBlock.next;
+                
       
                 // Split the large block and add the split blocks back to the free list
                 while (i > sizePower) {
@@ -65,14 +66,12 @@ public class FreeList {
                 }
       
                 // Here, 'largeBlock' has now been resized to size 2^k and can be marked as allocated.
-                return;
+                return largeBlock.startPosition;
             }
         } 
         
         // No blocks available to allocate
-        System.out.println("Out of memory");
-     
-        
+        return -1;   
     }
     
     public void deallocateBlock(int sizePower, int startPosition) {
