@@ -31,7 +31,7 @@ public class HashTable<K, V> {
 		table[hash1] = new Entry<>(key, value);
 		size++;
 		System.out.println("Successfully inserted record with ID " + key);
-	} 
+	}
 
 	public V get(int key) {
 		int hash1 = hash1(key);
@@ -117,11 +117,11 @@ public class HashTable<K, V> {
 		public V getValue() {
 			return value;
 		}
-		
+
 		public boolean getIsDeleted() {
 			return isDeleted;
 		}
-		
+
 		public void delete() {
 			isDeleted = true;
 		}
