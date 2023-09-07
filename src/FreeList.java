@@ -67,9 +67,7 @@ public class FreeList {
                 // Here, 'largeBlock' has now been resized to size 2^k and can be marked as allocated.
                 return;
             }
-        }
-        
-        // Need to update to double memeory space. 
+        } 
         
         // No blocks available to allocate
         System.out.println("Out of memory");
@@ -78,19 +76,13 @@ public class FreeList {
     }
     
     public void deallocateBlock(int sizePower, int startPosition) {
-        Node newNode = null;
+    	Node newNode = new Node(startPosition, 1 << sizePower);
+        newNode.next = freeListArray[sizePower];
+        freeListArray[sizePower] = newNode;
         
         // Check for a buddy to merge
         while (sizePower < maxPower) {
-        	
-        	// If no block exists in the next larger size, no merging can happen.
-            if (freeListArray[sizePower + 1] == null) {
-                newNode = new Node(startPosition, 1 << sizePower);
-                newNode.next = freeListArray[sizePower];
-                freeListArray[sizePower] = newNode;
-                break;
-            }
-            
+  
             int buddyStartPos = startPosition ^ (1 << sizePower);
             Node prev = null, curr = freeListArray[sizePower];
             
@@ -101,6 +93,10 @@ public class FreeList {
                     } else {
                         prev.next = curr.next;
                     }
+                    
+                    // Remove the original block as well
+                    freeListArray[sizePower] = freeListArray[sizePower].next;
+
                     
                     // Merge the blocks
                     startPosition = Math.min(startPosition, buddyStartPos);
@@ -117,6 +113,9 @@ public class FreeList {
                 curr = curr.next;
             }
             
+            if (curr == null) {
+                break;
+            }
         }
     }
     
