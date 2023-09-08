@@ -5,7 +5,7 @@ public class MemManager {
 	private FreeList freeList; 
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
-	public MemManager(int poolsize) {
+	public MemManager(int poolsize) { 
 		this.poolsize = poolsize;    
 		this.memoryPool = new byte[poolsize]; 
 		
@@ -17,7 +17,7 @@ public class MemManager {
         byte[] newMemoryPool = new byte[memoryPool.length * 2];
         System.arraycopy(memoryPool, 0, newMemoryPool, 0, memoryPool.length);
         memoryPool = newMemoryPool;
-        freeList.doubleMemory(); 
+        freeList.doubleMemory();  
     }
 	
 	// Insert a record and return its position handle.
@@ -27,13 +27,14 @@ public class MemManager {
 
 		while ((1 << sizePower) > memoryPool.length) { 
 	        doubleSize();
+	        freeList.doubleMemory(); 
 	    }
 		
 		int startPosition = freeList.addBlock(sizePower);
 		
 		System.arraycopy(space, 0, memoryPool, startPosition, size);
 		
-		Handle handle = new Handle(startPosition, size);
+		Handle handle = new Handle(size, startPosition);
 		
 		return handle;
 	}

@@ -9,7 +9,7 @@ public class FreeListTest {
 
 	@Before 
     public void setUp() throws Exception {
-		freeList = new FreeList(4); 
+		freeList = new FreeList(4);  
 		
     }
 	 
@@ -112,7 +112,7 @@ public class FreeListTest {
 	public void testDoubleMemory() {
 	    String initialState = freeList.toString();
 
-	    String expectedState = "0: 0\n" +
+	    String expectedState = "0: 0\n" + 
 	                           "1: 0\n" +
 	                           "2: 0\n" +
 	                           "3: 0\n" +

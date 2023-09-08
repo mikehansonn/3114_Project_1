@@ -14,7 +14,7 @@ public class FreeList {
             this.startPosition = startPosition;
             this.size = size; 
             this.next = null;
-        }
+        }  
     }
     
     // Constructor initializes the array and adds the initial block
@@ -142,7 +142,7 @@ public class FreeList {
 
             Node node = freeListArray[i]; 
             if (node == null) {
-                ret.append("0"); 
+                ret.append("0");  
             } else {
                 while (node != null) {
                     ret.append("(").append(node.startPosition).append(", ").append(node.size).append(")");
