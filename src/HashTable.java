@@ -23,12 +23,30 @@ public class HashTable<K, V> {
 		this.table = (Entry<Integer, V>[]) new Entry[capacity];
 		this.size = 0;
 	}
+	
+	/**
+	 * get the capacity
+	 * 
+	 * @return current capacity of the table
+	 */
+	public int getCapacity() {
+		return capacity;
+	}
+	
+	/**
+	 * getter for the size
+	 * 
+	 * @return current size of table
+	 */
+	public int getSize() {
+		return size;
+	}
 
 	/**
 	 * used to add new entries to hashtable
 	 * 
 	 * @param key   key to add
-	 * @param value value to add
+	 * @param value value to add 
 	 */
 	public void put(int key, V value) {
 		if ((double) size / capacity >= .5) {
@@ -42,9 +60,9 @@ public class HashTable<K, V> {
 			if (table[hash1].getKey() == key) {
 				System.out.println("Insert FAILED - There "
 						+ "is already a record with ID " + key);
-				return; // this record already exists
+				return; // this record already exists 
 			}
-
+ 
 			hash1 = (hash1 + hash2) % table.length;
 		}
 
@@ -87,7 +105,7 @@ public class HashTable<K, V> {
 		while (table[hash1] != null) {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
 				table[hash1].delete();
-				size--;
+				size--; 
 				return;
 			}
 
@@ -121,7 +139,8 @@ public class HashTable<K, V> {
 	 */
 	private void rehash() {
 		Entry<Integer, V>[] smallTable = table;
-		table = new Entry[smallTable.length * 2];
+		capacity = smallTable.length * 2;
+		table = new Entry[capacity];
 		size = 0;
 
 		for (Entry<Integer, V> entry : smallTable) {
