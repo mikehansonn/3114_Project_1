@@ -19,6 +19,7 @@ public class HashTableTest {
 		hashTable.put(3, "do");
 		hashTable.put(6, "yo");
 		hashTable.remove(6);
+		assertEquals(hashTable.getSize(), 3);
 		hashTable.remove(6);
 		hashTable.put(6, "yo");
 		System.out.print(hashTable.toString());
@@ -172,4 +173,105 @@ public class HashTableTest {
 		assertEquals(h.getLength(), 5);
 		assertEquals(h.getStartPosition(), 5);
 	}
+	
+	@Test
+	public void testResize() {
+		hashTable = new HashTable<>(2);
+		
+		hashTable.put(1, "one");
+	    hashTable.put(2, "two");
+	    hashTable.put(3, "three");
+	    
+	    assertEquals("one", hashTable.get(1));
+	    assertEquals("two", hashTable.get(2));
+	    assertEquals("three", hashTable.get(3));
+
+	    assertEquals(8, hashTable.getCapacity());
+	}
+	
+	@Test
+	public void testH2CalculationWithKeyModuloZero() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(8);
+	    int key = 0;
+
+	    int h2 = hashTable.hash2(key);
+
+	    assertEquals(1, h2);
+	}
+
+	@Test
+	public void testH2CalculationWithEvenKeyAndTableLength() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(8);
+	    int key = 6; // Even key and even table length
+
+	    int h2 = hashTable.hash2(key);
+
+	    assertEquals(1, h2);
+	}
+
+	@Test
+	public void testH2CalculationWithOddKeyAndTableLength() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(7);
+	    int key = 5; // Odd key and odd table length
+
+	    int h2 = hashTable.hash2(key);
+
+	    assertEquals(1, h2);
+	}
+
+	@Test
+	public void testH2CalculationWithKeyModuloTableLengthEqualsOne() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(10);
+	    int key = 11; // Key % table.length == 1
+
+	    int h2 = hashTable.hash2(key);
+
+	    assertEquals(3, h2);
+	}
+
+	@Test
+	public void testH2CalculationWithKeyModuloTableLengthGreaterThanOne() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(10);
+	    int key = 7; // Key % table.length > 1
+
+	    int h2 = hashTable.hash2(key);
+
+	    assertEquals(1, h2);
+	}
+	
+	@Test
+	public void testCapacityUpdateOnResize() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(8);
+
+	    // Add some elements that trigger a resize
+	    hashTable.put(1, "one");
+	    hashTable.put(2, "two");
+	    hashTable.put(3, "three");
+	    hashTable.put(4, "four");
+	    hashTable.put(5, "five");
+
+	    // Verify that the capacity has been correctly updated
+	    assertEquals(16, hashTable.getCapacity());
+	}
+	
+	@Test
+	public void testProbingDuringInsertion() {
+	    HashTable<Integer, String> hashTable = new HashTable<>(8);
+
+	    // Add elements that will trigger probing
+	    hashTable.put(1, "one");
+	    hashTable.put(9, "nine");
+	    hashTable.put(17, "seventeen");
+
+	    // Attempt to insert an element with a key that requires probing
+	    int keyToInsert = 2; // Key that requires probing
+	    String valueToInsert = "two";
+	    
+	    // Insert the element
+	    hashTable.put(keyToInsert, valueToInsert);
+
+	    // Verify that the element has been inserted at the expected position
+	    assertEquals(valueToInsert, hashTable.get(keyToInsert));
+	}
+
 }

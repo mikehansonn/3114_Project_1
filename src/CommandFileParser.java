@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 /**
  * This is the file to parse the command file
+ * 
+ * @author mikehanson
+ * @version 9/8/23
  */
 public class CommandFileParser {
 	private String fileName;
@@ -24,8 +27,9 @@ public class CommandFileParser {
 	 * Reads the file's commands
 	 * 
 	 * @throws FileNotFoundException if the file is not found
+	 * @return returns the string of the parse
 	 */
-	public String readCommands() throws FileNotFoundException {
+	public String readCommands() throws FileNotFoundException { 
 		File file = new File(fileName);
 		Scanner reader = new Scanner(file);
 		String ret = "";
@@ -33,10 +37,7 @@ public class CommandFileParser {
 		while (reader.hasNextLine()) {
 			String string = reader.nextLine().trim();
 
-			if (string.length() == 0) {
-				// do nothing, this is a whitespace line
-			} 
-			else if (string.startsWith("insert")) {
+			if (string.startsWith("insert")) {
 				String[] splitStrings = string.split("\\s+");
 				// insert number will be in splitStrings[1]
 				int idin = Integer.parseInt(splitStrings[1]);
@@ -57,7 +58,7 @@ public class CommandFileParser {
 						idin, tin, datein, lin, xin, yin, cin, kin, descin);
 
 				// Prints the Seminar Object
-				System.out.println(seminar.toString()); 
+				ret += seminar.toString() + "\n";
 
 				// Delegate the handling of the Seminar object to SemManager
 				// semManager.insertSeminar(idin, seminar);
@@ -66,18 +67,18 @@ public class CommandFileParser {
 			else if (string.startsWith("delete")) {
 				String[] splitStrings = string.split("\\s+");
 				// delete number will be in splitStrings[1]
-				System.out.println(splitStrings[1]);
+				ret += splitStrings[1] + "\n";
 				// call the delete(splitStrings[1])
 			} 
 			else if (string.startsWith("search")) {
 				String[] splitStrings = string.split("\\s+");
 				// search number will be in splitStrings[1]
-				System.out.println(splitStrings[1]);
+				ret += splitStrings[1] + "\n";
 				// call the search(splitStrings[1])
 			} 
 			else if (string.startsWith("print")) {
 				String[] splitStrings = string.split("\\s+");
-				System.out.println(splitStrings[1]);
+				ret += splitStrings[1] + "\n";
 				// hash or block will be in splitStrings[1]
 				// call the print(splitStrings[1])
 			}
