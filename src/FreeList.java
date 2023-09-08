@@ -33,7 +33,7 @@ public class FreeList {
     	 
     	// Check if an appropriate block of memory exists in the free list at index k
         Node currNode = freeListArray[sizePower];
-      
+       
         // If a block of the appropriate size exists, allocate it
         if (currNode != null) {
             freeListArray[sizePower] = currNode.next;  // Remove head of list
@@ -127,7 +127,7 @@ public class FreeList {
         int newBlockStartPosition = 1 << (maxPower - 1);
 
         // Create a new Node for the new free block
-        Node newBlock = new Node(newBlockStartPosition, 1 << maxPower);
+        Node newBlock = new Node(newBlockStartPosition, 1 << (maxPower -1) );
 
         // Add this block to the free list array
         freeListArray[maxPower] = newBlock;
@@ -140,9 +140,9 @@ public class FreeList {
         for (int i = 0; i < freeListArray.length; i++) {
             ret.append(i).append(": ");
 
-            Node node = freeListArray[i];
+            Node node = freeListArray[i]; 
             if (node == null) {
-                ret.append("0");
+                ret.append("0"); 
             } else {
                 while (node != null) {
                     ret.append("(").append(node.startPosition).append(", ").append(node.size).append(")");
@@ -154,7 +154,7 @@ public class FreeList {
             }
             ret.append("\n");
         }
-
+ 
         return ret.toString();
     }
 }
