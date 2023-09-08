@@ -42,3 +42,8 @@ search 2
 print hashtable
 print blocks
 delete 6
+delete insert
+delete search
+search print
+print delete
+final
