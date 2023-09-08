@@ -5,40 +5,124 @@ import org.junit.Test;
 
 public class FreeListTest {
 	
-	private FreeList freeList; 
+	private FreeList freeList;  
 
 	@Before 
     public void setUp() throws Exception {
-        freeList = new FreeList(4); // Adjust as necessary
+		freeList = new FreeList(4); 
+		
     }
+	 
+	@Test
+	public void testAddBlock_successfulAllocationWithInitialSplit() {
+		int startPosition = freeList.addBlock(2);
+		assertEquals(0, startPosition);
+		
+	}
 	
 	@Test
-	public void testAddBlock() {
-		freeList.addBlock(2); 
+	public void testAddBlock_successfulAllocationWithoutSplit() {
+		// Here we request a block of size 2^4, which matches our initial block size, so no splitting occurs
+		int startPosition = freeList.addBlock(4);
+		
+		assertEquals(0, startPosition);
+		//System.out.println(freeList.toString());
+	}
+	 
+	@Test
+	public void testAddBlock_successfulAllocationAfterInitialSplit() {
+	    // First we'll allocate a smaller block to force an initial split
+	    int handle1 = freeList.addBlock(2);
+	    
+	    // Now we'll request another block; this will not force a new split, but will use one of the split blocks created earlier
+	    int handle2 = freeList.addBlock(2);
+	    
+	    // Adding more blocks to test different scenarios
+	    int handle3 = freeList.addBlock(1);
+	    int handle4 = freeList.addBlock(1);
+	    int handle5 = freeList.addBlock(2);
+	    
+	    // Check that the allocations were successful and that the correct blocks were allocated
+	    assertEquals(0, handle1);  
+	    assertEquals(4, handle2);  
+	    assertEquals(8, handle3);  
+	    assertEquals(10, handle4);  
+	    assertEquals(12, handle5);  
+
+	    //System.out.println(freeList.toString());
+	}
+ 
+	@Test
+	public void testAddBlock_unsuccessfulAllocation() {
+		// Allocate all available blocks
 		freeList.addBlock(4);
 		
-		assertNotNull(freeList);
-		System.out.println(freeList.toString());
+		// Now, there should be no more blocks left to allocate
+		int handle = freeList.addBlock(1);
+		assertEquals(-1, handle);
+		//System.out.println(freeList.toString());
+	}
+	
+	
+	@Test
+	public void testDeallocateBlock_noMerge() {
+	    // Step 1: Allocate several blocks to create a scenario where a deallocated block has no free buddies to merge with
+	    int block1 = freeList.addBlock(2);
+	    int block2 = freeList.addBlock(2);
+	    int block3 = freeList.addBlock(1);
+	  
+	    // Step 2: Deallocate a block that does not have free buddy blocks
+	    freeList.deallocateBlock(2, block2);
+
+	    // Step 3: Define the expected state of the FreeList after the deallocation
+	    String expectedOutput = "0: 0\n" +
+				                "1: (10, 2)\n" +
+				                "2: (4, 4), (12, 4)\n" +
+				                "3: 0\n" +
+				                "4: 0\n";
+
+	    // Step 4: Check that the FreeList is in the expected state
+	    assertEquals(expectedOutput, freeList.toString());
 	}
 	
 	@Test
-	public void testAddBlockSamePosition() {
-		freeList.addBlock(2); 
-		freeList.addBlock(2);
-		
-		assertNotNull(freeList);
-		System.out.println(freeList.toString());
-	}
+    public void testDeallocateBlock_withMerge() {
+        // Allocate a block
+        int block1 = freeList.addBlock(2);
 
-	@Test
-	public void testDeallocateBlock() {
-		
-	}
+        // Deallocate the block
+        freeList.deallocateBlock(2, block1);
+
+        // Define the expected state of the FreeList after the deallocation
+        String expectedOutput = "0: 0\n" +
+				                "1: 0\n" +
+				                "2: 0\n" +
+				                "3: 0\n" +
+				                "4: (0, 16)\n";
+				                
+                                
+        // Check that the FreeList is in the expected state
+        assertEquals(expectedOutput, freeList.toString());
+    }	
+	
 
 	@Test
 	public void testDoubleMemory() {
-		freeList.doubleMemory();
-		assertNotNull(freeList);
+	    String initialState = freeList.toString();
+
+	    String expectedState = "0: 0\n" +
+	                           "1: 0\n" +
+	                           "2: 0\n" +
+	                           "3: 0\n" +
+	                           "4: (0, 16)\n" +
+	                           "5: (16, 16)\n";
+
+	    freeList.doubleMemory();
+
+	    String newState = freeList.toString();
+
+	    assertEquals(expectedState, newState);
+	    assertNotEquals(initialState, newState);
 	}
 
 }

@@ -25,7 +25,7 @@ public class FreeList {
         // Memory starts off as one large free block
         this.freeListArray[maxPower] = new Node(0, 1 << maxPower);
     }
-    
+     
         
     // change this to return a handle
     // Method to add a block back into the free list
@@ -33,7 +33,7 @@ public class FreeList {
     	 
     	// Check if an appropriate block of memory exists in the free list at index k
         Node currNode = freeListArray[sizePower];
-      
+       
         // If a block of the appropriate size exists, allocate it
         if (currNode != null) {
             freeListArray[sizePower] = currNode.next;  // Remove head of list
@@ -44,12 +44,12 @@ public class FreeList {
         // If we didn't find a block of appropriate size,
         // then find the next larger block and split it
         for (int i = sizePower + 1; i <= maxPower; i++) {
-            if (freeListArray[i] != null) {
+            if (freeListArray[i] != null) { 
             	
                 // Remove the block from the free list
                 Node largeBlock = freeListArray[i];
                 freeListArray[i] = largeBlock.next;
-                
+                 
       
                 // Split the large block and add the split blocks back to the free list
                 while (i > sizePower) {
@@ -127,7 +127,7 @@ public class FreeList {
         int newBlockStartPosition = 1 << (maxPower - 1);
 
         // Create a new Node for the new free block
-        Node newBlock = new Node(newBlockStartPosition, 1 << maxPower);
+        Node newBlock = new Node(newBlockStartPosition, 1 << (maxPower -1) );
 
         // Add this block to the free list array
         freeListArray[maxPower] = newBlock;
@@ -135,17 +135,26 @@ public class FreeList {
 
     
     public String toString() {
-    	String ret = "";
-    	
-    	for(int i = 0; i < freeListArray.length; i++) {
-    		Node node = freeListArray[i];
-    		while(node != null) {
-    			ret += node.startPosition + ", ";
-    			node = node.next;
-    		}
-    		ret += "\n";
-    	}
-    	
-    	return ret;
+        StringBuilder ret = new StringBuilder();
+
+        for (int i = 0; i < freeListArray.length; i++) {
+            ret.append(i).append(": ");
+
+            Node node = freeListArray[i]; 
+            if (node == null) {
+                ret.append("0"); 
+            } else {
+                while (node != null) {
+                    ret.append("(").append(node.startPosition).append(", ").append(node.size).append(")");
+                    node = node.next;
+                    if (node != null) {
+                        ret.append(", "); 
+                    }
+                }
+            }
+            ret.append("\n");
+        }
+ 
+        return ret.toString();
     }
 }
