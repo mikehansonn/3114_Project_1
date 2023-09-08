@@ -148,7 +148,7 @@ public class FreeList {
                     ret.append("(").append(node.startPosition).append(", ").append(node.size).append(")");
                     node = node.next;
                     if (node != null) {
-                        ret.append(", ");
+                        ret.append(", "); 
                     }
                 }
             }
