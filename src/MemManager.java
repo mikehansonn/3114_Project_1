@@ -25,7 +25,7 @@ public class MemManager {
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
 
-		while ((1 << sizePower) > memoryPool.length) { // adjust this to make size 2^n
+		while ((1 << sizePower) > memoryPool.length) { 
 	        doubleSize();
 	    }
 		
@@ -52,8 +52,27 @@ public class MemManager {
 	// Free a block at the position specified by theHandle.
 	// Merge adjacent free blocks.
 	public void remove(Handle theHandle) { 
+		if (theHandle == null) {
+	        return; 
+	    }
 		
+		int startPosition = theHandle.getStartPosition();
+	    int size = theHandle.getLength();
+	    int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
+	    
+	    
+	    // Reset the relevant portion of the memory pool to zero
+	    for (int i = startPosition; i < startPosition + size; i++) {
+	        memoryPool[i] = 0;
+	    }
+	    
+	    
+	    // Add the block to the free list
+	    freeList.deallocateBlock(sizePower, startPosition);
+			
 	}
+	
+	
 	// Return the record with handle posHandle, up to size bytes, by
 	// copying it into space.
 	// Return the number of bytes actually copied into space.
@@ -66,8 +85,9 @@ public class MemManager {
 		return totalBytes;
 		
 	}
+	
 	// Dump a printout of the freeblock list
 	public void dump() { 
-		
+		freeList.toString(); 
 	}
 }
