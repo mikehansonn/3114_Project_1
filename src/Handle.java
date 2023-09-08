@@ -18,7 +18,7 @@ public class Handle {
     }
 
     public int getStartPosition() {
-        return startPosition;
+        return startPosition; 
     }
 
     public void setStartPosition(int startPosition) {

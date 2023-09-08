@@ -25,7 +25,7 @@ public class MemManager {
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
 
-		while (size > memoryPool.length) {
+		while (size > memoryPool.length) { // adjust this to make size 2^n
 	        doubleSize();
 	    }
 		
@@ -41,9 +41,14 @@ public class MemManager {
 	
 	// Return the length of the record associated with theHandle
 	public int length(Handle theHandle) { 
-		return 0;
+		if (theHandle == null) {
+	        return -1;  // Or any other value/error message to indicate that the handle is null
+	    }
+		
+		return theHandle.getLength();
 	}
 	 
+	
 	// Free a block at the position specified by theHandle.
 	// Merge adjacent free blocks.
 	public void remove(Handle theHandle) { 
@@ -53,7 +58,15 @@ public class MemManager {
 	// copying it into space.
 	// Return the number of bytes actually copied into space.
 	public int get(byte[] space, Handle theHandle, int size) { 
-		return 0;
+		
+		
+		System.arraycopy(memoryPool, theHandle.getStartPosition(), space, 0, size);
+		//System.arraycopy(space, 0, memoryPool, startPosition, size);
+		
+		int totalBytes = space.length; 
+		
+		return totalBytes;
+		
 	}
 	// Dump a printout of the freeblock list
 	public void dump() { 
