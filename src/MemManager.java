@@ -17,7 +17,7 @@ public class MemManager {
         byte[] newMemoryPool = new byte[memoryPool.length * 2];
         System.arraycopy(memoryPool, 0, newMemoryPool, 0, memoryPool.length);
         memoryPool = newMemoryPool;
-        freeList.doubleMemory();  
+        freeList.doubleMemory();   
     }
 	
 	// Insert a record and return its position handle.
