@@ -23,5 +23,6 @@ public class CommandFileParserTest {
 		assertTrue(string.contains("insert"));
 		assertTrue(string.contains("delete"));
 		assertTrue(string.contains("search"));
+		assertTrue(string.contains("print"));
 	} 
 }

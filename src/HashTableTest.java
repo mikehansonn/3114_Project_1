@@ -13,19 +13,19 @@ public class HashTableTest {
 
 	@Test
 	public void testLoadHashTable() {
-		hashTable.put(8, "hello");
-		hashTable.put(16, "no");
-		hashTable.put(3, "yes");
-		hashTable.put(3, "do");
-		hashTable.put(6, "yo");
-		hashTable.remove(6);
+		hashTable.insert(8, "hello");
+		hashTable.insert(16, "no");
+		hashTable.insert(3, "yes");
+		hashTable.insert(3, "do");
+		hashTable.insert(6, "yo");
+		hashTable.delete(6);
 		assertEquals(hashTable.getSize(), 3);
-		hashTable.remove(6);
-		hashTable.put(6, "yo");
+		hashTable.delete(6);
+		hashTable.insert(6, "yo");
 		System.out.print(hashTable.toString());
-		String get = hashTable.get(16);
-		String getNull = hashTable.get(17);
-		hashTable.put(10, "norp");
+		String get = hashTable.search(16);
+		String getNull = hashTable.search(17);
+		hashTable.insert(10, "norp");
 		
 		assertNull(getNull);
 		assertEquals(get, "no");
@@ -34,22 +34,22 @@ public class HashTableTest {
 	
 	@Test
 	public void testRemove() {
-		hashTable.put(1, "hello");
-		hashTable.remove(1);
+		hashTable.insert(1, "hello");
+		hashTable.delete(1);
 		
-		String get = hashTable.get(1);
+		String get = hashTable.search(1);
 		assertEquals(get, null);
 		
-		hashTable.put(8, "hello");
-		hashTable.put(16, "pizza");
-		hashTable.remove(16);
-		hashTable.remove(26);
-		hashTable.put(17, "pizza");
-		hashTable.put(9, "taco");
-		hashTable.put(32, "milk");
-		hashTable.put(6, "milk");
+		hashTable.insert(8, "hello");
+		hashTable.insert(16, "pizza");
+		hashTable.delete(16);
+		hashTable.delete(26);
+		hashTable.insert(17, "pizza");
+		hashTable.insert(9, "taco");
+		hashTable.insert(32, "milk");
+		hashTable.insert(6, "milk");
 		
-		get = hashTable.get(16);
+		get = hashTable.search(16);
 		assertEquals(get, null);
 	}
 	
@@ -60,10 +60,10 @@ public class HashTableTest {
 	@Test
 	public void testPositioning() {
 		hashTable = new HashTable<>(8);
-		hashTable.put(1, "hello");
-		hashTable.put(2, "pizza");
-		hashTable.put(3, "kale");
-		hashTable.put(10, "check");
+		hashTable.insert(1, "hello");
+		hashTable.insert(2, "pizza");
+		hashTable.insert(3, "kale");
+		hashTable.insert(10, "check");
 		System.out.print(hashTable.toString());
 		
 		assertNotNull(hashTable);
@@ -76,16 +76,16 @@ public class HashTableTest {
 	@Test 
 	public void testTombstone() {
 		hashTable = new HashTable<>(8);
-		hashTable.put(1, "hello");
-		hashTable.put(2, "pizza");
-		hashTable.put(3, "kale");
-		hashTable.put(10, "check");
-		hashTable.remove(2);
+		hashTable.insert(1, "hello");
+		hashTable.insert(2, "pizza");
+		hashTable.insert(3, "kale");
+		hashTable.insert(10, "check");
+		hashTable.delete(2);
 		String remove = hashTable.toString();
 		System.out.print(remove);
 		
 		assertTrue(remove.contains("TOMBSTONE"));
-		hashTable.put(2, "new pizza");
+		hashTable.insert(2, "new pizza");
 		remove = hashTable.toString();
 		assertFalse(remove.contains("TOMBSTONE"));
 	}
@@ -97,14 +97,14 @@ public class HashTableTest {
 	public void testEdgeCases() {
 		hashTable = new HashTable<>(8);
 		
-		hashTable.put(1, "one");
-	    hashTable.remove(1);
-	    assertNull(hashTable.get(1));
+		hashTable.insert(1, "one");
+	    hashTable.delete(1);
+	    assertNull(hashTable.search(1));
 
-	    hashTable.put(2, "two");
-	    hashTable.put(3, "three");
-	    hashTable.remove(2);
-	    assertNull(hashTable.get(2));
+	    hashTable.insert(2, "two");
+	    hashTable.insert(3, "three");
+	    hashTable.delete(2);
+	    assertNull(hashTable.search(2));
 	}
 	
 	/**
@@ -114,13 +114,13 @@ public class HashTableTest {
 	public void testResizing() {
 	    hashTable = new HashTable<>(2);
 
-	    hashTable.put(1, "one");
-	    hashTable.put(2, "two");
-	    hashTable.put(3, "three");
+	    hashTable.insert(1, "one");
+	    hashTable.insert(2, "two");
+	    hashTable.insert(3, "three");
 
-	    assertEquals("one", hashTable.get(1));
-	    assertEquals("two", hashTable.get(2));
-	    assertEquals("three", hashTable.get(3));
+	    assertEquals("one", hashTable.search(1));
+	    assertEquals("two", hashTable.search(2));
+	    assertEquals("three", hashTable.search(3));
 	}
 	
 	/**
@@ -151,25 +151,25 @@ public class HashTableTest {
 		Handle handle2 = new Handle(5, 5);
 		Handle handle3 = new Handle(5, 5);
 		
-		hashCharacter.put(4, 'A');
-		hashCharacter.put(1, 'B');
-		hashCharacter.put(7, 'C');
-		hashCharacter.remove(7);
-		char c = hashCharacter.get(4);
+		hashCharacter.insert(4, 'A');
+		hashCharacter.insert(1, 'B');
+		hashCharacter.insert(7, 'C');
+		hashCharacter.delete(7);
+		char c = hashCharacter.search(4);
 		assertEquals(c, 'A');
 		
-		hashInteger.put(3, 1);
-		hashInteger.put(1, 2);
-		hashInteger.put(5, 4);
-		hashInteger.remove(7);
-		int i = hashInteger.get(5);
+		hashInteger.insert(3, 1);
+		hashInteger.insert(1, 2);
+		hashInteger.insert(5, 4);
+		hashInteger.delete(7);
+		int i = hashInteger.search(5);
 		assertEquals(i, 4);
 		
-		hashHandle.put(3, handle1);
-		hashHandle.put(1, handle2);
-		hashHandle.put(5, handle3);
-		hashHandle.remove(3);
-		Handle h = hashHandle.get(5);
+		hashHandle.insert(3, handle1);
+		hashHandle.insert(1, handle2);
+		hashHandle.insert(5, handle3);
+		hashHandle.delete(3);
+		Handle h = hashHandle.search(5);
 		assertEquals(h.getLength(), 5);
 		assertEquals(h.getStartPosition(), 5);
 	}
@@ -178,13 +178,13 @@ public class HashTableTest {
 	public void testResize() {
 		hashTable = new HashTable<>(2);
 		
-		hashTable.put(1, "one");
-	    hashTable.put(2, "two");
-	    hashTable.put(3, "three");
+		hashTable.insert(1, "one");
+	    hashTable.insert(2, "two");
+	    hashTable.insert(3, "three");
 	    
-	    assertEquals("one", hashTable.get(1));
-	    assertEquals("two", hashTable.get(2));
-	    assertEquals("three", hashTable.get(3));
+	    assertEquals("one", hashTable.search(1));
+	    assertEquals("two", hashTable.search(2));
+	    assertEquals("three", hashTable.search(3));
 
 	    assertEquals(8, hashTable.getCapacity());
 	}
@@ -244,11 +244,11 @@ public class HashTableTest {
 	    HashTable<Integer, String> hashTable = new HashTable<>(8);
 
 	    // Add some elements that trigger a resize
-	    hashTable.put(1, "one");
-	    hashTable.put(2, "two");
-	    hashTable.put(3, "three");
-	    hashTable.put(4, "four");
-	    hashTable.put(5, "five");
+	    hashTable.insert(1, "one");
+	    hashTable.insert(2, "two");
+	    hashTable.insert(3, "three");
+	    hashTable.insert(4, "four");
+	    hashTable.insert(5, "five");
 
 	    // Verify that the capacity has been correctly updated
 	    assertEquals(16, hashTable.getCapacity());
@@ -259,19 +259,19 @@ public class HashTableTest {
 	    HashTable<Integer, String> hashTable = new HashTable<>(8);
 
 	    // Add elements that will trigger probing
-	    hashTable.put(1, "one");
-	    hashTable.put(9, "nine");
-	    hashTable.put(17, "seventeen");
+	    hashTable.insert(1, "one");
+	    hashTable.insert(9, "nine");
+	    hashTable.insert(17, "seventeen");
 
 	    // Attempt to insert an element with a key that requires probing
 	    int keyToInsert = 2; // Key that requires probing
 	    String valueToInsert = "two";
 	    
 	    // Insert the element
-	    hashTable.put(keyToInsert, valueToInsert);
+	    hashTable.insert(keyToInsert, valueToInsert);
 
 	    // Verify that the element has been inserted at the expected position
-	    assertEquals(valueToInsert, hashTable.get(keyToInsert));
+	    assertEquals(valueToInsert, hashTable.search(keyToInsert));
 	}
 
 }

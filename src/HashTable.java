@@ -21,7 +21,7 @@ public class HashTable<K, V> {
 	public HashTable(int capacity) {
 		this.capacity = capacity;
 		this.table = (Entry<Integer, V>[]) new Entry[capacity];
-		this.size = 0;
+		this.size = 0; 
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class HashTable<K, V> {
 	 * @param key   key to add
 	 * @param value value to add 
 	 */
-	public void put(int key, V value) {
+	public void insert(int key, V value) {
 		if ((double) size / capacity >= .5) {
 			rehash();
 		}
@@ -78,7 +78,7 @@ public class HashTable<K, V> {
 	 * @param key key to get value
 	 * @return returns the value of the entry
 	 */
-	public V get(int key) {
+	public V search(int key) {
 		int hash1 = hash1(key);
 		int hash2 = hash2(key);
 
@@ -98,7 +98,7 @@ public class HashTable<K, V> {
 	 * 
 	 * @param key key to remove entry at
 	 */
-	public void remove(int key) {
+	public void delete(int key) {
 		int hash1 = hash1(key);
 		int hash2 = hash2(key);
 
@@ -145,7 +145,7 @@ public class HashTable<K, V> {
 
 		for (Entry<Integer, V> entry : smallTable) {
 			if (entry != null && !entry.getIsDeleted()) {
-				put(entry.getKey(), entry.getValue());
+				insert(entry.getKey(), entry.getValue());
 			}
 		}
 	}
