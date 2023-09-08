@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-/**
- * 
- */
-
-=======
->>>>>>> 18b302fc0b2c0375698aa92d0eac27810fa77b77
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
 /**
  * 
  */
@@ -43,26 +35,5 @@ public class MemManagerTest {
         
     }
 
-=======
-public class MemManagerTest {
-	private MemManager manager;
-
-	@Before
-	public void setUp() throws Exception {
-		manager = new MemManager(16);
-	}
-
-	@Test
-	public void testInsert() {
-		byte[] data = { 1, 2, 3, 4 };
-		Handle handle = manager.insert(data, data.length);
-		assertNotNull(handle);
-	}
-
-	@Test
-	public void testDump() {
-		manager.dump();
-	}
->>>>>>> 18b302fc0b2c0375698aa92d0eac27810fa77b77
 
 }
