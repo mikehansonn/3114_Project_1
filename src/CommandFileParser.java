@@ -56,7 +56,7 @@ public class CommandFileParser {
 						idin, tin, datein, lin, xin, yin, cin, kin, descin);
 
 				// Prints the Seminar Object
-				System.out.println(seminar.toString());
+				System.out.println(seminar.toString()); 
 
 				// Delegate the handling of the Seminar object to SemManager
 				// semManager.insertSeminar(idin, seminar);
