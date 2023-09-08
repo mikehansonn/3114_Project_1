@@ -17,6 +17,7 @@ public class FreeListTest {
 	public void testAddBlock_successfulAllocationWithInitialSplit() {
 		int startPosition = freeList.addBlock(2);
 		assertEquals(0, startPosition);
+		System.out.println(freeList.toString());
 		
 	}
 	
@@ -26,7 +27,7 @@ public class FreeListTest {
 		int startPosition = freeList.addBlock(4);
 		
 		assertEquals(0, startPosition);
-		//System.out.println(freeList.toString());
+		
 	}
 	 
 	@Test
@@ -60,7 +61,7 @@ public class FreeListTest {
 		// Now, there should be no more blocks left to allocate
 		int handle = freeList.addBlock(1);
 		assertEquals(-1, handle);
-		//System.out.println(freeList.toString());
+		
 	}
 	
 	
@@ -83,6 +84,7 @@ public class FreeListTest {
 
 	    // Step 4: Check that the FreeList is in the expected state
 	    assertEquals(expectedOutput, freeList.toString());
+		System.out.println(freeList.toString());
 	}
 	
 	@Test
@@ -120,6 +122,8 @@ public class FreeListTest {
 	    freeList.doubleMemory();
 
 	    String newState = freeList.toString();
+	    
+		System.out.println(freeList.toString());
 
 	    assertEquals(expectedState, newState);
 	    assertNotEquals(initialState, newState);

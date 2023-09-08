@@ -6,7 +6,7 @@ public class MemManager {
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
 	public MemManager(int poolsize) {
-		this.poolsize = poolsize;   
+		this.poolsize = poolsize;    
 		this.memoryPool = new byte[poolsize]; 
 		
 		int sizePower = (int) (Math.log(poolsize) / Math.log(2));
@@ -25,7 +25,7 @@ public class MemManager {
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
 
-		while (size > memoryPool.length) { // adjust this to make size 2^n
+		while ((1 << sizePower) > memoryPool.length) { // adjust this to make size 2^n
 	        doubleSize();
 	    }
 		
@@ -59,9 +59,7 @@ public class MemManager {
 	// Return the number of bytes actually copied into space.
 	public int get(byte[] space, Handle theHandle, int size) { 
 		
-		
 		System.arraycopy(memoryPool, theHandle.getStartPosition(), space, 0, size);
-		//System.arraycopy(space, 0, memoryPool, startPosition, size);
 		
 		int totalBytes = space.length; 
 		
