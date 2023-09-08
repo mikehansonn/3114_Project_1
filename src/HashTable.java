@@ -31,7 +31,7 @@ public class HashTable<K, V> {
 	 * @param value value to add
 	 */
 	public void put(int key, V value) {
-		if ((double) size / capacity == .5) {
+		if ((double) size / capacity >= .5) {
 			rehash();
 		}
 
@@ -101,7 +101,7 @@ public class HashTable<K, V> {
 	 * @param key key to hash
 	 * @return returns the hashed value
 	 */
-	private int hash1(int key) {
+	public int hash1(int key) {
 		return key % table.length;
 	}
 
@@ -111,7 +111,7 @@ public class HashTable<K, V> {
 	 * @param key key to hash
 	 * @return returns the hashed value
 	 */
-	private int hash2(int key) {
+	public int hash2(int key) {
 		int h2 = (((key / table.length) % (table.length / 2)) * 2) + 1;
 		return h2 % table.length;
 	}

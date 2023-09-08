@@ -25,9 +25,10 @@ public class CommandFileParser {
 	 * 
 	 * @throws FileNotFoundException if the file is not found
 	 */
-	public void readCommands() throws FileNotFoundException {
+	public String readCommands() throws FileNotFoundException {
 		File file = new File(fileName);
 		Scanner reader = new Scanner(file);
+		String ret = "";
 
 		while (reader.hasNextLine()) {
 			String string = reader.nextLine().trim();
@@ -83,5 +84,6 @@ public class CommandFileParser {
 		}
 
 		reader.close();
+		return ret;
 	}
 }
