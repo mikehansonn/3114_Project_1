@@ -34,13 +34,54 @@ import java.io.FileNotFoundException;
 //sem manager -> command parser
 //               -> implement DB -> Index Structure -> Hash Table
 //                               -> Storage, Memory Manager
+
 public class SemManager {
-    /**
-     * @param args
-     *     Command line parameters
-     */
-    public static void main(String[] args) {
-        // This is the main file for the program.
-        Seminar dum = new Seminar();
-    }
+	private HashTable<Integer, Handle> hashTable;
+	private MemManager memoryManager;
+
+	public SemManager(int poolSize, int hashSize) {
+		hashTable = new HashTable<>(hashSize);
+		memoryManager = new MemManager(poolSize);
+	}
+
+	public void insertSeminar(int id, Seminar seminar) {
+		Handle handle = null;
+		
+		hashTable.insert(id, handle);
+	}
+	
+	public void deleteSeminar(int id) {
+		hashTable.delete(id);
+	}
+	
+	public void searchSeminar(int id) {
+		Handle handle = hashTable.search(id);
+		
+		//call memmanager to get the byte[] and put back into form
+		//the call toString
+	}
+	
+	public void printSeminar(String label) {
+		if(label.equals("hashtable")) {
+			hashTable.toString();
+		}
+		else {
+			//call memmanager
+		}
+	}
+
+	/**
+	 * @param args Command line parameters args[2] holds the read file
+	 * @throws FileNotFoundException
+	 */
+	public static void main(String[] args) throws FileNotFoundException {
+		int initialMemorySize = Integer.parseInt(args[0]);
+		int initialHashSize = Integer.parseInt(args[1]);
+
+		// This is the main file for the program.
+		// commands = insert, delete, search, print
+		SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
+		CommandFileParser parser = new CommandFileParser(args[2], semManager);
+		parser.readCommands();
+	}
 }

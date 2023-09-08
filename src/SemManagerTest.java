@@ -21,7 +21,7 @@ public class SemManagerTest extends TestCase {
      */
     public void testMInitx() throws FileNotFoundException
     {
-        SemManager sem = new SemManager();
+        SemManager sem = new SemManager(1, 2);
         assertNotNull(sem);
         SemManager.main(null);
     }
