@@ -157,7 +157,7 @@ public class HashTable<K, V> {
 			}
 		}
 		System.out.println(
-				"Hash Table expanded to" + capacity + "records");
+				"Hash Table expanded to " + capacity + " records");
 	}
 
 	/**

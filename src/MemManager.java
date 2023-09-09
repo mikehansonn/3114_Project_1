@@ -2,7 +2,7 @@
 public class MemManager {
 	private int poolsize; 
 	private byte[] memoryPool;
-	private FreeList freeList; 
+	private FreeList freeList;
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
 	public MemManager(int poolsize) { 
@@ -13,9 +13,14 @@ public class MemManager {
 		this.freeList = new FreeList(sizePower); 
 	}
 	
+	public int getPoolsize() {
+		return poolsize;
+	}
+	
 	private void doubleSize() {
         byte[] newMemoryPool = new byte[poolsize * 2];
         poolsize *= 2;
+        System.out.println("Memory pool expanded to " + poolsize + " bytes");
         System.arraycopy(memoryPool, 0, newMemoryPool, 0, memoryPool.length);
         memoryPool = newMemoryPool;
         freeList.doubleMemory();   
@@ -28,7 +33,7 @@ public class MemManager {
 
 		while ((1 << sizePower) > memoryPool.length) { 
 	        doubleSize();
-	        freeList.doubleMemory(); 
+	        freeList.doubleMemory();
 	    }
 		
 		int startPosition = freeList.addBlock(sizePower);
