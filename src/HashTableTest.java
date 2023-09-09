@@ -11,7 +11,7 @@ public class HashTableTest {
 		hashTable = new HashTable<>(8);
 	}
 
-	@Test
+	@Test 
 	public void testLoadHashTable() {
 		hashTable.insert(8, "hello");
 		hashTable.insert(16, "no");

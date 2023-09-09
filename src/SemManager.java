@@ -51,7 +51,7 @@ public class SemManager {
 	}
 	
 	public void deleteSeminar(int id) {
-		hashTable.delete(id);
+		Handle handle = hashTable.delete(id);
 	}
 	
 	public void searchSeminar(int id) {
@@ -63,7 +63,7 @@ public class SemManager {
 	
 	public void printSeminar(String label) {
 		if(label.equals("hashtable")) {
-			hashTable.toString();
+			System.out.println(hashTable.toString());
 		}
 		else {
 			//call memmanager

@@ -98,19 +98,21 @@ public class HashTable<K, V> {
 	 * 
 	 * @param key key to remove entry at
 	 */
-	public void delete(int key) {
+	public V delete(int key) {
 		int hash1 = hash1(key);
 		int hash2 = hash2(key);
 
 		while (table[hash1] != null) {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
-				table[hash1].delete();
+				table[hash1].delete(); 
 				size--; 
-				return;
+				return table[hash1].getValue();
 			}
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
+		
+		return null;
 	}
 
 	/**
