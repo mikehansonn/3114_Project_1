@@ -19,7 +19,7 @@ public class SemManagerTest extends TestCase {
      */
     public void testMInitx() throws Exception
     {
-    	String[] args = { "10", "20", "P1Sample_input.txt"};
+    	String[] args = { "512", "4", "P1Sample_input.txt"};
         SemManager sem = new SemManager(1, 2);
         assertNotNull(sem);
         SemManager.main(args);

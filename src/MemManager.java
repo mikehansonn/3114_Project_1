@@ -10,11 +10,12 @@ public class MemManager {
 		this.memoryPool = new byte[poolsize]; 
 		
 		int sizePower = (int) (Math.log(poolsize) / Math.log(2));
-		this.freeList = new FreeList(sizePower);
+		this.freeList = new FreeList(sizePower); 
 	}
 	
 	private void doubleSize() {
-        byte[] newMemoryPool = new byte[memoryPool.length * 2];
+        byte[] newMemoryPool = new byte[poolsize * 2];
+        poolsize *= 2;
         System.arraycopy(memoryPool, 0, newMemoryPool, 0, memoryPool.length);
         memoryPool = newMemoryPool;
         freeList.doubleMemory();   

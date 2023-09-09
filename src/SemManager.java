@@ -42,29 +42,27 @@ public class SemManager {
 		memoryManager = new MemManager(poolSize);
 	}
 
-	public void insertSeminar(int id, Seminar seminar) throws Exception {
-		Handle handle = null;
+	public void insertSeminar(int id, Seminar seminar) throws Exception { //done?
 		byte[] record = seminar.serialize();
-		//call mm insert the record and 
+		Handle handle = memoryManager.insert(record, record.length);
 		
 		hashTable.insert(id, handle);
 		System.out.println(seminar.toString());
+		System.out.println(memoryManager.get(record, handle, record.length));
 	}
 	
-	public void deleteSeminar(int id) {
+	public void deleteSeminar(int id) { //done
 		Handle handle = hashTable.delete(id);
-		
-		//call mm to delete the record with the handle details
+		memoryManager.remove(handle);
 	}
 	
 	public void searchSeminar(int id) {
 		Handle handle = hashTable.search(id);
 		
-		//call memmanager to get the byte[] and put back into form
-		//the call toString
+		System.out.println("we here");
 	}
 	
-	public void printSeminar(String label) {
+	public void printSeminar(String label) { //done
 		if(label.equals("hashtable")) {
 			System.out.println(hashTable.toString());
 		}
