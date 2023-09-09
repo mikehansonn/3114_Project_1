@@ -89,6 +89,6 @@ public class MemManager {
 	
 	// Dump a printout of the freeblock list
 	public void dump() { 
-		freeList.toString(); 
+		System.out.println(freeList.toString());
 	}
 }

@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -26,10 +25,10 @@ public class CommandFileParser {
 	/**
 	 * Reads the file's commands
 	 * 
-	 * @throws FileNotFoundException if the file is not found
 	 * @return returns the string of the parse
+	 * @throws Exception 
 	 */
-	public String readCommands() throws FileNotFoundException { 
+	public String readCommands() throws Exception { 
 		File file = new File(fileName);
 		Scanner reader = new Scanner(file);
 		String ret = "";
@@ -60,27 +59,28 @@ public class CommandFileParser {
 				// Prints the Seminar Object
 				ret += seminar.toString() + "\n";
 
-				// Delegate the handling of the Seminar object to SemManager
-				// semManager.insertSeminar(idin, seminar);
+				semManager.insertSeminar(idin, seminar);
 
 			} 
 			else if (string.startsWith("delete")) {
 				String[] splitStrings = string.split("\\s+");
-				// delete number will be in splitStrings[1]
 				ret += splitStrings[1] + "\n";
-				// call the delete(splitStrings[1])
+				
+				int idin = Integer.parseInt(splitStrings[1]);
+				semManager.deleteSeminar(idin);
 			} 
 			else if (string.startsWith("search")) {
 				String[] splitStrings = string.split("\\s+");
-				// search number will be in splitStrings[1]
 				ret += splitStrings[1] + "\n";
-				// call the search(splitStrings[1])
+				
+				int idin = Integer.parseInt(splitStrings[1]);
+				semManager.searchSeminar(idin);
 			} 
 			else if (string.startsWith("print")) {
 				String[] splitStrings = string.split("\\s+");
 				ret += splitStrings[1] + "\n";
-				// hash or block will be in splitStrings[1]
-				// call the print(splitStrings[1])
+				
+				semManager.printSeminar(splitStrings[1]);
 			}
 		}
 

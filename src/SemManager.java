@@ -3,8 +3,6 @@
  * {Project Description Here}
  */
 
-import java.io.FileNotFoundException;
-
 /**
  * The class containing the main method.
  *
@@ -44,14 +42,19 @@ public class SemManager {
 		memoryManager = new MemManager(poolSize);
 	}
 
-	public void insertSeminar(int id, Seminar seminar) {
+	public void insertSeminar(int id, Seminar seminar) throws Exception {
 		Handle handle = null;
+		byte[] record = seminar.serialize();
+		//call mm insert the record and 
 		
 		hashTable.insert(id, handle);
+		System.out.println(seminar.toString());
 	}
 	
 	public void deleteSeminar(int id) {
 		Handle handle = hashTable.delete(id);
+		
+		//call mm to delete the record with the handle details
 	}
 	
 	public void searchSeminar(int id) {
@@ -66,15 +69,15 @@ public class SemManager {
 			System.out.println(hashTable.toString());
 		}
 		else {
-			//call memmanager
+			memoryManager.dump();
 		}
 	}
 
 	/**
 	 * @param args Command line parameters args[2] holds the read file
-	 * @throws FileNotFoundException
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws Exception {
 		int initialMemorySize = Integer.parseInt(args[0]);
 		int initialHashSize = Integer.parseInt(args[1]);
 

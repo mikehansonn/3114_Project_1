@@ -1,6 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ public class CommandFileParserTest {
 	} 
 	 
 	@Test
-	public void testReadCommands() throws FileNotFoundException {
+	public void testReadCommands() throws Exception {
 		String string = parser.readCommands();
 		System.out.print(string);
 		

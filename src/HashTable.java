@@ -84,12 +84,15 @@ public class HashTable<K, V> {
 
 		while (table[hash1] != null) {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
+				System.out.println("Found record with ID " + key + ":");
 				return table[hash1].getValue();
 			}
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
-
+		
+		System.out.println(
+				"Search FAILED -- There is no record with ID " + key);
 		return null; // if the index is not found
 	}
 
@@ -106,12 +109,15 @@ public class HashTable<K, V> {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
 				table[hash1].delete(); 
 				size--; 
+				System.out.println(
+						"Record with ID " + key + " successfully deleted from the database");
 				return table[hash1].getValue();
 			}
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
 		
+		System.out.println("Delete FAILED -- There is no record with ID " + key);
 		return null;
 	}
 
@@ -150,6 +156,8 @@ public class HashTable<K, V> {
 				insert(entry.getKey(), entry.getValue());
 			}
 		}
+		System.out.println(
+				"Hash Table expanded to" + capacity + "records");
 	}
 
 	/**
