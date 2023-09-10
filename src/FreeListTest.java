@@ -22,6 +22,14 @@ public class FreeListTest {
 	}
 	
 	@Test
+	public void testAddBlock_fillArray() {
+		freeList.addBlock(4);
+		freeList.addBlock(2);
+		System.out.println(freeList.toString());
+		
+	}
+	
+	@Test
 	public void testAddBlock_successfulAllocationWithoutSplit() {
 		// Here we request a block of size 2^4, which matches our initial block size, so no splitting occurs
 		int startPosition = freeList.addBlock(4);
@@ -76,11 +84,9 @@ public class FreeListTest {
 	    freeList.deallocateBlock(2, block2);
 
 	    // Step 3: Define the expected state of the FreeList after the deallocation
-	    String expectedOutput = "0: 0\n" +
-				                "1: (10, 2)\n" +
-				                "2: (4, 4), (12, 4)\n" +
-				                "3: 0\n" +
-				                "4: 0\n";
+	    String expectedOutput = "Freeblock List:\n" +
+						                "2: 10\n"   +
+						                "4: 4 12\n";
 
 	    // Step 4: Check that the FreeList is in the expected state
 	    assertEquals(expectedOutput, freeList.toString());
@@ -96,11 +102,8 @@ public class FreeListTest {
         freeList.deallocateBlock(2, block1);
 
         // Define the expected state of the FreeList after the deallocation
-        String expectedOutput = "0: 0\n" +
-				                "1: 0\n" +
-				                "2: 0\n" +
-				                "3: 0\n" +
-				                "4: (0, 16)\n";
+        String expectedOutput = "Freeblock List:\n" +
+                                         "16: 0\n";
 				                
                                 
         // Check that the FreeList is in the expected state
@@ -112,12 +115,9 @@ public class FreeListTest {
 	public void testDoubleMemory() {
 	    String initialState = freeList.toString();
 
-	    String expectedState = "0: 0\n" + 
-	                           "1: 0\n" +
-	                           "2: 0\n" +
-	                           "3: 0\n" +
-	                           "4: (0, 16)\n" +
-	                           "5: (16, 16)\n";
+	    String expectedState = "Freeblock List:\n" + 
+                "16: 0\n" + 
+                "32: 16\n";
 
 	    freeList.doubleMemory();
 

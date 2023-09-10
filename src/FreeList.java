@@ -136,25 +136,32 @@ public class FreeList {
     
     public String toString() {
         StringBuilder ret = new StringBuilder();
+        ret.append("Freeblock List:\n");
+        
+        boolean hasFreeBlocks = false;
 
         for (int i = 0; i < freeListArray.length; i++) {
-            ret.append(i).append(": ");
-
             Node node = freeListArray[i]; 
-            if (node == null) {
-                ret.append("0");  
-            } else {
+            if (node != null) {
+                hasFreeBlocks = true;
+                ret.append((int)Math.pow(2, i)).append(": ");
+                
                 while (node != null) {
-                    ret.append("(").append(node.startPosition).append(", ").append(node.size).append(")");
+                    ret.append(node.startPosition);
                     node = node.next;
                     if (node != null) {
-                        ret.append(", "); 
+                        ret.append(" ");
                     }
                 }
+                ret.append("\n");
             }
-            ret.append("\n");
         }
- 
+
+        if (!hasFreeBlocks) {
+            ret.append("There are no freeblocks in the memory pool \n");
+        }
+
         return ret.toString();
     }
+
 }

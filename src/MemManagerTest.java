@@ -2,7 +2,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class MemManagerTest {
-    @Test
+    
+	@Test
     public void testInsertAndLength() {
         MemManager memManager = new MemManager(64); // Initialize with a 64-byte memory pool
         byte[] data = "Hello, World!".getBytes();
@@ -55,15 +56,16 @@ public class MemManagerTest {
 
     @Test
     public void testDoubleSize() {
-        MemManager memManager = new MemManager(32); // Initialize with a 32-byte memory pool
+        MemManager memManager = new MemManager(4);
         byte[] data = "Hello, World!".getBytes();
         int dataSize = data.length;
+        
         
         // Insert data into the memory pool that exceeds its initial size
         Handle handle = memManager.insert(data, dataSize);
         
         // Check if the memory pool size has doubled
-        assertEquals(64, memManager.getPoolsize());
+        assertEquals(16, memManager.getPoolsize());
         
         // Retrieve the data and check if it's correct
         byte[] retrievedData = new byte[dataSize];
