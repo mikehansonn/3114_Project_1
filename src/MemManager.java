@@ -30,13 +30,18 @@ public class MemManager {
 	// space contains the record to be inserted, of length size.
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
-
-		while ((1 << sizePower) > memoryPool.length) { 
+		
+		System.out.println(1 << sizePower);
+		int startPosition = freeList.addBlock(sizePower);
+		while ((1 << sizePower) > memoryPool.length 
+				|| startPosition == -1) { 
 	        doubleSize();
 	        freeList.doubleMemory();
+	        startPosition = freeList.addBlock(sizePower);
 	    }
 		
-		int startPosition = freeList.addBlock(sizePower);
+		
+		System.out.println("start: " + startPosition);
 		
 		System.arraycopy(space, 0, memoryPool, startPosition, size);
 		

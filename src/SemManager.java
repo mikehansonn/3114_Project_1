@@ -43,6 +43,9 @@ public class SemManager {
 	}
 
 	public void insertSeminar(int id, Seminar seminar) throws Exception { //done?
+		if(hashTable.search(id) != null) return;
+		//if this id is already inserted, stop.
+		
 		byte[] record = seminar.serialize();
 		Handle handle = memoryManager.insert(record, record.length);
 		
@@ -80,7 +83,7 @@ public class SemManager {
 		int initialHashSize = Integer.parseInt(args[1]);
 
 		// This is the main file for the program.
-		// commands = insert, delete, search, print
+		// commands = insert, delete, search, print 
 		SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
 		CommandFileParser parser = new CommandFileParser(args[2], semManager);
 		parser.readCommands();
