@@ -33,9 +33,8 @@ public class MemManager {
 		
 		System.out.println(1 << sizePower);
 		int startPosition = freeList.addBlock(sizePower);
-		System.out.println(startPosition + "S");
-		while ((1 << sizePower) > memoryPool.length 
-				|| startPosition == -1) { 
+		System.out.println(startPosition);
+		while (startPosition == -1) { 
 	        doubleSize();
 	        freeList.doubleMemory();
 	        startPosition = freeList.addBlock(sizePower);

@@ -56,13 +56,13 @@ public class MemManagerTest {
 
     @Test
     public void testDoubleSize() {
-        MemManager memManager = new MemManager(4);
-        byte[] data = "Hello, World!".getBytes();
+        MemManager memManager = new MemManager(2);
+        byte[] data = {1, 2};
         int dataSize = data.length;
-        
         
         // Insert data into the memory pool that exceeds its initial size
         Handle handle = memManager.insert(data, dataSize);
+        Handle handle1 = memManager.insert(data, dataSize);
         
         // Check if the memory pool size has doubled
         assertEquals(16, memManager.getPoolsize());

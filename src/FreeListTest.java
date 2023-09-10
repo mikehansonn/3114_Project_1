@@ -23,7 +23,7 @@ public class FreeListTest {
 	
 	@Test
 	public void testAddBlock_fillArray() {
-		freeList.addBlock(4);
+		int start = freeList.addBlock(4);
 		freeList.addBlock(2);
 		System.out.println(freeList.toString());
 		
