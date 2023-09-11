@@ -37,7 +37,6 @@ public class MemManager {
 		
 		while (startPosition == -1  || startPosition >= poolsize) { 
 	        doubleSize();
-	        freeList.doubleMemory();
 	        startPosition = freeList.addBlock(sizePower);
 	    }
 		
