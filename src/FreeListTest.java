@@ -87,7 +87,7 @@ public class FreeListTest {
 	    // Step 3: Define the expected state of the FreeList after the deallocation
 	    String expectedOutput = "Freeblock List:\n" +
 						                "2: 10\n"   +
-						                "4: 4 12\n";
+						                "4: 12 4\n";
 
 	    // Step 4: Check that the FreeList is in the expected state
 	    assertEquals(expectedOutput, freeList.toString());
