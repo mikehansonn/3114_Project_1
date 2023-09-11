@@ -2,7 +2,7 @@
 public class MemManager {
 	private int poolsize; 
 	private byte[] memoryPool;
-	private FreeList freeList;
+	private FreeList freeList; 
 	
 	// Constructor. poolsize defines the size of the memory pool in bytes
 	public MemManager(int poolsize) { 
@@ -11,6 +11,7 @@ public class MemManager {
 		
 		int sizePower = (int) (Math.log(poolsize) / Math.log(2));
 		this.freeList = new FreeList(sizePower); 
+		
 	}
 	
 	public int getPoolsize() {
@@ -31,17 +32,19 @@ public class MemManager {
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
 		
-		System.out.println(1 << sizePower);
+		
 		int startPosition = freeList.addBlock(sizePower);
+		
 		System.out.println(startPosition);
-		while (startPosition == -1) { 
+		
+		
+		// fake while loop condition, place holder. 
+		// might make a condition for the first block, and then a condtion for the negative -1
+		while (startPosition == -1 ) { 
 	        doubleSize();
 	        freeList.doubleMemory();
 	        startPosition = freeList.addBlock(sizePower);
 	    }
-		
-		
-		System.out.println("start: " + startPosition);
 		
 		System.arraycopy(space, 0, memoryPool, startPosition, size);
 		
@@ -64,9 +67,6 @@ public class MemManager {
 	// Free a block at the position specified by theHandle.
 	// Merge adjacent free blocks.
 	public void remove(Handle theHandle) { 
-		if (theHandle == null) {
-	        return; 
-	    }
 		
 		int startPosition = theHandle.getStartPosition();
 	    int size = theHandle.getLength();

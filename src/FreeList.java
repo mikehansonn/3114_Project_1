@@ -41,6 +41,7 @@ public class FreeList {
             return currNode.startPosition; // return startPosition of allocated block
         }
         
+        
         // If we didn't find a block of appropriate size,
         // then find the next larger block and split it
         for (int i = sizePower + 1; i <= maxPower; i++) {

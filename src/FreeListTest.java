@@ -16,6 +16,7 @@ public class FreeListTest {
 	@Test
 	public void testAddBlock_successfulAllocationWithInitialSplit() {
 		int startPosition = freeList.addBlock(2);
+		System.out.println(startPosition);
 		assertEquals(0, startPosition);
 		System.out.println(freeList.toString());
 		
