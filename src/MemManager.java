@@ -32,13 +32,16 @@ public class MemManager {
 	public Handle insert(byte[] space, int size) {
 		int sizePower = (int) Math.ceil(Math.log(size) / Math.log(2));
 		
-		while((1 << sizePower) > poolsize) {
-			doubleSize();
-		}
+		int startPosition; 
 		
-		int startPosition = freeList.addBlock(sizePower);
-
-		while (startPosition == -1  || startPosition + size >= poolsize) { 
+		while((1 << sizePower) > poolsize) {
+			doubleSize(); 
+		}
+			
+		startPosition = freeList.addBlock(sizePower);
+			 
+		
+		while (startPosition == -1) { 
 	        doubleSize();
 	        startPosition = freeList.addBlock(sizePower);
 	    }
