@@ -118,25 +118,44 @@ public class FreeList {
     public void doubleMemory() {
         // Increase the maxPower
         maxPower += 1;
-        
+
         // Extend the freeListArray
         Node[] newFreeListArray = new Node[maxPower + 1];
         System.arraycopy(freeListArray, 0, newFreeListArray, 0, freeListArray.length);
         freeListArray = newFreeListArray;
-        
-        // Checker node to see if the first block has been added yet
-        
-      
-        // Calculate the starting position of the new free block. It's the end of the old array.
-        int	newBlockStartPosition = 1 << (maxPower - 1);
-        
-     
-        // Create a new Node for the new free block
-        Node newBlock = new Node(newBlockStartPosition, 1 << (maxPower -1) );
 
-        // Add this block to the free list array
-        freeListArray[maxPower] = newBlock;
+        // Calculate the starting position of the new free block. It's the end of the old array.
+        int newBlockStartPosition = 1 << (maxPower - 1);
+
+        // Create a new Node for the new free block
+        Node newBlock = new Node(newBlockStartPosition, 1 << (maxPower -1));
+
+        // Check if a buddy exists in the previous highest power of 2 list
+        Node prev = null, curr = freeListArray[maxPower - 1];
+        while (curr != null) {
+            if (curr.startPosition == 0 && curr.size == newBlock.size) {
+                // Found a buddy to merge with, remove this node from the list
+                if (prev == null) {
+                    freeListArray[maxPower - 1] = curr.next;
+                } else {
+                    prev.next = curr.next;
+                }
+
+                // Add the merged block to the new highest power of 2 list
+                Node mergedBlock = new Node(0, newBlock.size * 2);
+                mergedBlock.next = freeListArray[maxPower];
+                freeListArray[maxPower] = mergedBlock;
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+
+        // If no buddy found, add the new block to the previous highest power of 2 list
+        newBlock.next = freeListArray[maxPower - 1];
+        freeListArray[maxPower - 1] = newBlock;
     }
+
 
     
     public String toString() {

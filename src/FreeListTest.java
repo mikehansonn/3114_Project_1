@@ -129,5 +129,20 @@ public class FreeListTest {
 	    assertEquals(expectedState, newState);
 	    assertNotEquals(initialState, newState);
 	}
+	
+	@Test
+	public void testDoubleMemory_alternativeCase() {
+		freeList.addBlock(2);  // Allocating a block of size 16 (2^4)
+	    freeList.addBlock(1);  // Allocating another block of size 16 (2^4)
+
+	    freeList.doubleMemory();
+
+
+	    
+		System.out.println(freeList.toString());
+
+	    
+	}
+
 
 }
