@@ -35,12 +35,7 @@ public class MemManager {
 		
 		int startPosition = freeList.addBlock(sizePower);
 		
-		System.out.println(startPosition);
-		
-		
-		// fake while loop condition, place holder. 
-		// might make a condition for the first block, and then a condtion for the negative -1
-		while (startPosition == -1 ) { 
+		while (startPosition == -1  || startPosition >= poolsize) { 
 	        doubleSize();
 	        freeList.doubleMemory();
 	        startPosition = freeList.addBlock(sizePower);
@@ -100,6 +95,6 @@ public class MemManager {
 	
 	// Dump a printout of the freeblock list
 	public void dump() { 
-		System.out.println(freeList.toString());
+		System.out.print(freeList.toString());
 	}
 }

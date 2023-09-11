@@ -43,26 +43,44 @@ public class SemManager {
 	}
 
 	public void insertSeminar(int id, Seminar seminar) throws Exception { //done?
-		if(hashTable.search(id) != null) return;
+		if(hashTable.search(id) != null) {
+			System.out.println("Insert FAILED - There "
+					+ "is already a record with ID " + id);
+			return;
+		}
 		//if this id is already inserted, stop.
 		
 		byte[] record = seminar.serialize();
 		Handle handle = memoryManager.insert(record, record.length);
 		
 		hashTable.insert(id, handle);
+		System.out.println(
+				"Successfully inserted record with ID " + id);
 		System.out.println(seminar.toString());
-		System.out.println(memoryManager.get(record, handle, record.length));
+		System.out.println("Size: " + memoryManager.get(record, handle, record.length));
 	}
 	
 	public void deleteSeminar(int id) { //done
 		Handle handle = hashTable.delete(id);
+		if(handle == null) {
+			System.out.println(
+					"Delete FAILED -- There is no record with ID " + id);
+			return;
+		}
+		System.out.println(
+				"Record with ID " + id + " successfully deleted from the database");
 		memoryManager.remove(handle);
 	}
 	
 	public void searchSeminar(int id) {
 		Handle handle = hashTable.search(id);
-		
-		System.out.println("we here");
+		if(handle != null) {
+			System.out.println("Found record with ID " + id + ":");
+		}
+		else {
+			System.out.println(
+					"Search FAILED -- There is no record with ID " + id);
+		}
 	}
 	
 	public void printSeminar(String label) { //done

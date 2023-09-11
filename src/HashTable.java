@@ -58,8 +58,6 @@ public class HashTable<K, V> {
 
 		while (table[hash1] != null && !table[hash1].getIsDeleted()) {
 			if (table[hash1].getKey() == key) {
-				System.out.println("Insert FAILED - There "
-						+ "is already a record with ID " + key);
 				return; // this record already exists 
 			}
  
@@ -68,8 +66,6 @@ public class HashTable<K, V> {
 
 		table[hash1] = new Entry<>(key, value);
 		size++;
-		System.out.println(
-				"Successfully inserted record with ID " + key);
 	}
 
 	/**
@@ -84,15 +80,12 @@ public class HashTable<K, V> {
 
 		while (table[hash1] != null) {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
-				System.out.println("Found record with ID " + key + ":");
 				return table[hash1].getValue();
 			}
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
 		
-		System.out.println(
-				"Search FAILED -- There is no record with ID " + key);
 		return null; // if the index is not found
 	}
 
@@ -109,15 +102,11 @@ public class HashTable<K, V> {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
 				table[hash1].delete(); 
 				size--; 
-				System.out.println(
-						"Record with ID " + key + " successfully deleted from the database");
 				return table[hash1].getValue();
 			}
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
-		
-		System.out.println("Delete FAILED -- There is no record with ID " + key);
 		return null;
 	}
 
@@ -180,7 +169,7 @@ public class HashTable<K, V> {
 				}
 			}
 		}
-		ret += "total records: " + size + "\n";
+		ret += "total records: " + size;
 
 		return ret;
 	}
