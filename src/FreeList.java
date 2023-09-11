@@ -1,15 +1,31 @@
-
+/**
+ * This is a Freelist implementation for the project
+ * 
+ * @author mikehanson, matt02
+ * @version 9/11/23
+ * 
+ */
 public class FreeList {
 	private Node[] freeListArray; // Array of linked lists
 	private int maxPower; // Maximum power of 2 for block sizes
 	
 	
-	// Inner Node class to represent a block in the linked list
+	/**
+     * Node class representing a block in the memory pool with a 
+     * specified size and starting position.
+     */
     private class Node {
         int startPosition; // Starting position of the block in the memory pool
         int size; // Size of the block
         Node next; // Pointer to the next Node
 
+        
+        /**
+         * Constructs a Node with the specified starting position and size.
+         *
+         * @param startPosition the starting position of the block in the memory pool
+         * @param size the size of the block
+         */
         public Node(int startPosition, int size) {
             this.startPosition = startPosition;
             this.size = size; 
@@ -17,7 +33,13 @@ public class FreeList {
         }  
     }
     
-    // Constructor initializes the array and adds the initial block
+    /**
+     * Initializes the FreeList with the specified maximum power 
+     * for block sizes. The memory starts off as one large free block.
+     *
+     * @param maxPower the maximum power of 2 representing the largest 
+     *                 block size available in the memory pool
+     */
     public FreeList(int maxPower) {
     	this.maxPower = maxPower;
         this.freeListArray = new Node[maxPower + 1];
@@ -27,17 +49,23 @@ public class FreeList {
     }
      
         
-    // change this to return a handle
-    // Method to add a block back into the free list
+    /**
+     * Allocates a block on the freeList removing it from the freeList. 
+     * Breaking down buddy blocks if needed 
+     *
+     * @param sizePower the power of 2 representing the block size to be added
+     * @return the starting position of the allocated block, or -1 if no blocks 
+     *         are available to allocate
+     */
     public int addBlock(int sizePower) {
     	 
-    	// Check if an appropriate block of memory exists in the free list at index k
+    	// Check if an appropriate block of memory exists in the free list at index sizePower
         Node currNode = freeListArray[sizePower];
        
         // If a block of the appropriate size exists, allocate it
         if (currNode != null) {
             freeListArray[sizePower] = currNode.next;  // Remove head of list
-            // Here, 'currNode' can be marked as allocated.
+       
             return currNode.startPosition; // return startPosition of allocated block
         }
         
@@ -66,7 +94,6 @@ public class FreeList {
                     largeBlock.size = 1 << i;
                 }
       
-                // Here, 'largeBlock' has now been resized to size 2^k and can be marked as allocated.
                 return largeBlock.startPosition;
             }
         } 
@@ -75,6 +102,13 @@ public class FreeList {
         return -1;   
     }
     
+    
+    /**
+     * Deallocates a block and merges buddy blocks if available
+     *
+     * @param sizePower the power of 2 representing the size of the block to be deallocated
+     * @param startPosition the starting position of the block to be deallocated
+     */
     public void deallocateBlock(int sizePower, int startPosition) {
         Node newNode = new Node(startPosition, 1 << sizePower);
         
@@ -114,7 +148,9 @@ public class FreeList {
         freeListArray[sizePower] = newNode;
     }
 
-    
+    /**
+     * Doubles the Freelist Array in size, merging blocks where possible. 
+     */
     public void doubleMemory() {
         // Increase the maxPower
         maxPower += 1;
@@ -157,7 +193,12 @@ public class FreeList {
     }
 
 
-    
+    /**
+     * Generates a string representation of the free list, showing the 
+     * blocks available in the memory pool.
+     *
+     * @return a string representation of the free list
+     */
     public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append("Freeblock List:\n");
@@ -180,12 +221,12 @@ public class FreeList {
                 ret.append("\n");
             }
         }
-
-        if (!hasFreeBlocks) {
-            ret.append("There are no freeblocks in the memory pool \n");
+ 
+        if (!hasFreeBlocks) { 
+            ret.append("There are no freeblocks in the memory pool \n"); 
         }
 
-        return ret.toString();
+        return ret.toString(); 
     }
 
 }
