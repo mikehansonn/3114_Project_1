@@ -21,9 +21,9 @@ public class HashTable<K, V> {
 	public HashTable(int capacity) {
 		this.capacity = capacity;
 		this.table = (Entry<Integer, V>[]) new Entry[capacity];
-		this.size = 0; 
+		this.size = 0;
 	}
-	
+
 	/**
 	 * get the capacity
 	 * 
@@ -32,7 +32,7 @@ public class HashTable<K, V> {
 	public int getCapacity() {
 		return capacity;
 	}
-	
+
 	/**
 	 * getter for the size
 	 * 
@@ -46,7 +46,7 @@ public class HashTable<K, V> {
 	 * used to add new entries to hashtable
 	 * 
 	 * @param key   key to add
-	 * @param value value to add 
+	 * @param value value to add
 	 */
 	public void insert(int key, V value) {
 		if ((double) size / capacity >= .5) {
@@ -58,9 +58,9 @@ public class HashTable<K, V> {
 
 		while (table[hash1] != null && !table[hash1].getIsDeleted()) {
 			if (table[hash1].getKey() == key) {
-				return; // this record already exists 
+				return; // this record already exists
 			}
- 
+
 			hash1 = (hash1 + hash2) % table.length;
 		}
 
@@ -85,7 +85,7 @@ public class HashTable<K, V> {
 
 			hash1 = (hash1 + hash2) % table.length;
 		}
-		
+
 		return null; // if the index is not found
 	}
 
@@ -93,6 +93,7 @@ public class HashTable<K, V> {
 	 * removes the entry at given key
 	 * 
 	 * @param key key to remove entry at
+	 * @return the handle that is getting deleted
 	 */
 	public V delete(int key) {
 		int hash1 = hash1(key);
@@ -100,8 +101,8 @@ public class HashTable<K, V> {
 
 		while (table[hash1] != null) {
 			if (!table[hash1].getIsDeleted() && table[hash1].getKey() == key) {
-				table[hash1].delete(); 
-				size--; 
+				table[hash1].delete();
+				size--;
 				return table[hash1].getValue();
 			}
 
@@ -162,8 +163,7 @@ public class HashTable<K, V> {
 				if (table[i].getIsDeleted()) {
 					String add = i + ": " + "TOMBSTONE" + "\n";
 					ret += add;
-				} 
-				else {
+				} else {
 					String add = i + ": " + table[i].getKey() + "\n";
 					ret += add;
 				}
