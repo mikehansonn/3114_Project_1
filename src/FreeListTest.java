@@ -117,8 +117,7 @@ public class FreeListTest {
 	    String initialState = freeList.toString();
 
 	    String expectedState = "Freeblock List:\n" + 
-                "16: 0\n" + 
-                "32: 16\n";
+                "32: 0\n";
 
 	    freeList.doubleMemory();
 

@@ -169,14 +169,13 @@ public class FreeList {
             if (node != null) {
                 hasFreeBlocks = true;
                 ret.append((int)Math.pow(2, i)).append(": ");
+                String append = "";
                 
                 while (node != null) {
-                    ret.append(node.startPosition);
+                    append = node.startPosition + " " + append;
                     node = node.next;
-                    if (node != null) {
-                        ret.append(" ");
-                    }
                 }
+                ret.append(append);
                 ret.append("\n");
             }
         }

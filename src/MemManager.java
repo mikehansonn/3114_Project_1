@@ -46,11 +46,6 @@ public class MemManager {
 	        startPosition = freeList.addBlock(sizePower);
 	    }
 		
-		System.out.println("start: " + startPosition);
-		System.out.println("Size: " + size);
-		System.out.println("Start position: " + startPosition);
-		System.out.println("Memory pool length: " + memoryPool.length);
-		
 		System.arraycopy(space, 0, memoryPool, startPosition, size);
 		
 		Handle handle = new Handle(size, startPosition);
