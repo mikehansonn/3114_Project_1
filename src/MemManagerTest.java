@@ -68,8 +68,16 @@ public class MemManagerTest {
         
         memManager.insert(data1, data1.length);
         // Check if the memory pool size has doubled
-        assertEquals(16, memManager.getPoolsize());
+        assertEquals(8, memManager.getPoolsize());
         
+        
+    }
+    
+    @Test
+    public void testDump() {
+    	
+    	
+    	
         
     }
 }

@@ -34,7 +34,7 @@ public class MemManager {
 		
 		int startPosition; 
 		
-		while((1 << sizePower) > poolsize) {
+		while((1 << sizePower > poolsize)) {
 			doubleSize(); 
 		}
 			
