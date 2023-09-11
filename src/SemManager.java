@@ -37,112 +37,112 @@
  * @version 9/11/23
  */
 public class SemManager {
-	private HashTable<Integer, Handle> hashTable;
-	private MemManager memoryManager;
+    private HashTable<Integer, Handle> hashTable;
+    private MemManager memoryManager;
 
-	/**
-	 * Initial constructor for the semmanager
-	 * 
-	 * @param poolSize inital memory manager size
-	 * @param hashSize initial hashtable size
-	 */
-	public SemManager(int poolSize, int hashSize) {
-		hashTable = new HashTable<>(hashSize);
-		memoryManager = new MemManager(poolSize);
-	}
+    /**
+     * Initial constructor for the semmanager
+     * 
+     * @param poolSize inital memory manager size
+     * @param hashSize initial hashtable size
+     */
+    public SemManager(int poolSize, int hashSize) {
+        hashTable = new HashTable<>(hashSize);
+        memoryManager = new MemManager(poolSize);
+    }
 
-	/**
-	 * Given a seminar, insert the record into memory
-	 * 
-	 * @param id      the key of the seminar
-	 * @param seminar the actual seminar
-	 * @throws Exception serialize function
-	 */
-	public void insertSeminar(int id, Seminar seminar) throws Exception { // done?
-		if (hashTable.search(id) != null) {
-			System.out.println(
-					"Insert FAILED - There "
-					+ "is already a record with ID " + id);
-			return;
-		}
-		// if this id is already inserted, stop.
+    /**
+     * Given a seminar, insert the record into memory
+     * 
+     * @param id      the key of the seminar
+     * @param seminar the actual seminar
+     * @throws Exception serialize function
+     */
+    public void insertSeminar(
+            int id, Seminar seminar) throws Exception {
+        if (hashTable.search(id) != null) {
+            System.out.println(
+                    "Insert FAILED - There " + "is already a record with ID " + id);
+            return;
+        }
+        // if this id is already inserted, stop.
 
-		byte[] record = seminar.serialize();
-		Handle handle = memoryManager.insert(record, record.length);
+        byte[] record = seminar.serialize();
+        Handle handle = memoryManager.insert(record, record.length);
 
-		hashTable.insert(id, handle);
-		System.out.println(
-				"Successfully inserted record with ID " + id);
-		System.out.println(seminar.toString());
-		System.out.println(
-				"Size: " + 
-				memoryManager.get(record, handle, record.length));
-	}
+        hashTable.insert(id, handle);
+        System.out.println(
+                "Successfully inserted record with ID " + id);
+        System.out.println(seminar.toString());
+        System.out.println(
+                "Size: " + memoryManager.get(record, handle, record.length));
+    }
 
-	/**
-	 * Delete a seminar from memory
-	 * 
-	 * @param id of the seminar to delete
-	 */
-	public void deleteSeminar(int id) { // done
-		Handle handle = hashTable.delete(id);
-		if (handle == null) {
-			System.out.println(
-					"Delete FAILED -- There is no record with ID " + id);
-			return;
-		}
-		System.out.println(
-				"Record with ID " + 
-				id + " successfully deleted from the database");
-		memoryManager.remove(handle);
-	}
+    /**
+     * Delete a seminar from memory
+     * 
+     * @param id of the seminar to delete
+     */
+    public void deleteSeminar(int id) { // done
+        Handle handle = hashTable.delete(id);
+        if (handle == null) {
+            System.out.println(
+                    "Delete FAILED -- There is no record with ID " + id);
+            return;
+        }
+        System.out.println(
+                "Record with ID " + id + " successfully deleted from the database");
+        memoryManager.remove(handle);
+    }
 
-	/**
-	 * Search for a seminar and print
-	 * 
-	 * @param id if the seminar
-	 * @throws Exception serialize function
-	 */
-	public void searchSeminar(int id) throws Exception {
-		Handle handle = hashTable.search(id);
-		if (handle != null) {
-			System.out.println(
-					"Found record with ID " + id + ":");
-			byte[] arr = new byte[handle.getLength()];
-			memoryManager.get(arr, handle, handle.getLength());
-			Seminar sem = Seminar.deserialize(arr);
-			System.out.println(sem.toString());
-		} else {
-			System.out.println(
-					"Search FAILED -- There is no record with ID " + id);
-		}
-	}
+    /**
+     * Search for a seminar and print
+     * 
+     * @param id if the seminar
+     * @throws Exception serialize function
+     */
+    public void searchSeminar(int id) throws Exception {
+        Handle handle = hashTable.search(id);
+        if (handle != null) {
+            System.out.println(
+                    "Found record with ID " + id + ":");
+            byte[] arr = new byte[handle.getLength()];
+            memoryManager.get(arr, handle, handle.getLength());
+            Seminar sem = Seminar.deserialize(arr);
+            System.out.println(sem.toString());
+        } 
+        else {
+            System.out.println(
+                    "Search FAILED -- There is no record with ID " + id);
+        }
+    }
 
-	/**
-	 * Print a hash or memory dump
-	 * 
-	 * @param label which dump to print
-	 */
-	public void printSeminar(String label) { // done
-		if (label.equals("hashtable")) {
-			System.out.println(hashTable.toString());
-		} else {
-			memoryManager.dump();
-		}
-	}
+    /**
+     * Print a hash or memory dump
+     * 
+     * @param label which dump to print
+     */
+    public void printSeminar(String label) { // done
+        if (label.equals("hashtable")) {
+            System.out.println(hashTable.toString());
+        } 
+        else {
+            memoryManager.dump();
+        }
+    }
 
-	/**
-	 * @param args Command line parameters args[2] holds the read file
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-		int initialMemorySize = Integer.parseInt(args[0]);
-		int initialHashSize = Integer.parseInt(args[1]);
+    /**
+     * @param args Command line parameters args[2] holds the read file
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        int initialMemorySize = Integer.parseInt(args[0]);
+        int initialHashSize = Integer.parseInt(args[1]);
 
-		// This is the main file for the program.
-		// commands = insert, delete, search, print
-		SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
-		CommandFileParser parser = new CommandFileParser(args[2], semManager);
-		parser.readCommands();
-	}
+        // This is the main file for the program.
+        // commands = insert, delete, search, print
+        SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
+        CommandFileParser parser = new CommandFileParser(args[2], semManager);
+        parser.readCommands();
+    }
 }
