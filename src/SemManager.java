@@ -58,7 +58,8 @@ public class SemManager {
 	 * @param seminar the actual seminar
 	 * @throws Exception serialize function
 	 */
-	public void insertSeminar(int id, Seminar seminar) throws Exception { // done?
+	public void insertSeminar(
+			int id, Seminar seminar) throws Exception {
 		if (hashTable.search(id) != null) {
 			System.out.println(
 					"Insert FAILED - There "
@@ -112,7 +113,8 @@ public class SemManager {
 			memoryManager.get(arr, handle, handle.getLength());
 			Seminar sem = Seminar.deserialize(arr);
 			System.out.println(sem.toString());
-		} else {
+		} 
+		else {
 			System.out.println(
 					"Search FAILED -- There is no record with ID " + id);
 		}
@@ -126,7 +128,8 @@ public class SemManager {
 	public void printSeminar(String label) { // done
 		if (label.equals("hashtable")) {
 			System.out.println(hashTable.toString());
-		} else {
+		} 
+		else {
 			memoryManager.dump();
 		}
 	}
@@ -141,7 +144,8 @@ public class SemManager {
 
 		// This is the main file for the program.
 		// commands = insert, delete, search, print
-		SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
+		SemManager semManager = new SemManager(
+				initialMemorySize, initialHashSize);
 		CommandFileParser parser = new CommandFileParser(args[2], semManager);
 		parser.readCommands();
 	}

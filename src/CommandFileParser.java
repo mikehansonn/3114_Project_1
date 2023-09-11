@@ -53,26 +53,31 @@ public class CommandFileParser {
 				String[] kin = reader.nextLine().trim().split("\\s+");
 				String descin = reader.nextLine().trim();
 
-				Seminar seminar = new Seminar(idin, tin, datein, lin, xin, yin, cin, kin, descin);
+				Seminar seminar = 
+						new Seminar(
+								idin, tin, datein, lin, xin, yin, cin, kin, descin);
 
 				// Prints the Seminar Object
 				ret += seminar.toString() + "\n";
 
 				semManager.insertSeminar(idin, seminar);
 
-			} else if (string.startsWith("delete")) {
+			} 
+			else if (string.startsWith("delete")) {
 				String[] splitStrings = string.split("\\s+");
 				ret += splitStrings[1] + "\n";
 
 				int idin = Integer.parseInt(splitStrings[1]);
 				semManager.deleteSeminar(idin);
-			} else if (string.startsWith("search")) {
+			} 
+			else if (string.startsWith("search")) {
 				String[] splitStrings = string.split("\\s+");
 				ret += splitStrings[1] + "\n";
 
 				int idin = Integer.parseInt(splitStrings[1]);
 				semManager.searchSeminar(idin);
-			} else if (string.startsWith("print")) {
+			} 
+			else if (string.startsWith("print")) {
 				String[] splitStrings = string.split("\\s+");
 				ret += splitStrings[1] + "\n";
 

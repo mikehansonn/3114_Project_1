@@ -63,6 +63,7 @@ public class Handle {
 	 */
 	@Override
 	public String toString() {
-		return "Record{" + "length=" + length + ", startPosition=" + startPosition + '}';
+		return "Record{" + "length=" 
+				+ length + ", startPosition=" + startPosition + '}';
 	}
 }

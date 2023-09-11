@@ -24,7 +24,8 @@ public class CommandFileParserTest {
 	}
 
 	/**
-	 * The test to read the commands, and then check to see if we have what we are
+	 * The test to read the commands, 
+	 * and then check to see if we have what we are
 	 * supposed to
 	 * 
 	 * @throws Exception if the file is not found
@@ -34,7 +35,8 @@ public class CommandFileParserTest {
 		String string = parser.readCommands();
 		System.out.print(string);
 
-		assertTrue(string.contains("ID: 1, Title: Overview of HCI Research at VT"));
+		assertTrue(string.contains(
+				"ID: 1, Title: Overview of HCI Research at VT"));
 		assertTrue(string.contains("hashtable"));
 		assertTrue(string.contains("blocks"));
 	}
