@@ -18,7 +18,7 @@ public class MemManager {
 		return poolsize;
 	}
 	
-	private void doubleSize() {
+	private void doubleSize() { 
         byte[] newMemoryPool = new byte[poolsize * 2];
         poolsize *= 2;
         System.out.println("Memory pool expanded to " + poolsize + " bytes");
@@ -37,9 +37,13 @@ public class MemManager {
 		
 		while (startPosition == -1  || startPosition >= poolsize) { 
 	        doubleSize();
-	        freeList.doubleMemory();
 	        startPosition = freeList.addBlock(sizePower);
 	    }
+		
+		System.out.println("start: " + startPosition);
+		System.out.println("Size: " + size);
+		System.out.println("Start position: " + startPosition);
+		System.out.println("Memory pool length: " + memoryPool.length);
 		
 		System.arraycopy(space, 0, memoryPool, startPosition, size);
 		
@@ -97,4 +101,5 @@ public class MemManager {
 	public void dump() { 
 		System.out.print(freeList.toString());
 	}
+	
 }

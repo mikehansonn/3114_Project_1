@@ -118,15 +118,19 @@ public class FreeList {
     public void doubleMemory() {
         // Increase the maxPower
         maxPower += 1;
-
+        
         // Extend the freeListArray
         Node[] newFreeListArray = new Node[maxPower + 1];
         System.arraycopy(freeListArray, 0, newFreeListArray, 0, freeListArray.length);
         freeListArray = newFreeListArray;
-
+        
+        // Checker node to see if the first block has been added yet
+        
+      
         // Calculate the starting position of the new free block. It's the end of the old array.
-        int newBlockStartPosition = 1 << (maxPower - 1);
-
+        int	newBlockStartPosition = 1 << (maxPower - 1);
+        
+     
         // Create a new Node for the new free block
         Node newBlock = new Node(newBlockStartPosition, 1 << (maxPower -1) );
 
