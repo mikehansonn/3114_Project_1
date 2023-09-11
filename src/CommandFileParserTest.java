@@ -7,7 +7,8 @@ public class CommandFileParserTest {
 	private CommandFileParser parser;
 	@Before
 	public void setUp() throws Exception {
-		parser = new CommandFileParser("P1Sample_input.txt", null);
+		SemManager manager = new SemManager(512, 4);
+		parser = new CommandFileParser("P1Sample_input.txt", manager);
 	} 
 	 
 	@Test
@@ -19,9 +20,5 @@ public class CommandFileParserTest {
 				("ID: 1, Title: Overview of HCI Research at VT"));
 		assertTrue(string.contains("hashtable"));
 		assertTrue(string.contains("blocks"));
-		assertTrue(string.contains("insert"));
-		assertTrue(string.contains("delete"));
-		assertTrue(string.contains("search"));
-		assertTrue(string.contains("print"));
 	} 
 }

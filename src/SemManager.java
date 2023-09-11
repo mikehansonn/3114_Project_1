@@ -72,10 +72,14 @@ public class SemManager {
 		memoryManager.remove(handle);
 	}
 	
-	public void searchSeminar(int id) {
+	public void searchSeminar(int id) throws Exception {
 		Handle handle = hashTable.search(id);
 		if(handle != null) {
 			System.out.println("Found record with ID " + id + ":");
+			byte[] arr = new byte[handle.getLength()];
+			memoryManager.get(arr, handle, handle.getLength());
+			Seminar sem = Seminar.deserialize(arr);
+			System.out.println(sem.toString());
 		}
 		else {
 			System.out.println(
