@@ -184,6 +184,9 @@ public class MemManagerTest {
         assertEquals(8, copiedBytes);
     }
     
+    /**
+     * Test for the size computation
+     */
     @Test
     public void testRemoveMethodSizePowerComputation() {
         
