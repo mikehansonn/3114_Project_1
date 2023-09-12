@@ -436,5 +436,66 @@ public class HashTableTest {
         // Assert that the actual h2 value matches the expected value
         assertEquals(expectedH2, actualH2);
     }
+    
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testInsertnormalCase() {
+        HashTable hashTable = new HashTable<>(10);
+        hashTable.insert(1, "value1");
+        assertEquals("value1", hashTable.search(1));
+    }
+
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testInsertrehashTriggered() {
+        HashTable hashTable = new HashTable<>(10);
+        for(int i = 0; i < 6; i++) {
+            hashTable.insert(i, "value" + i);
+        }
+        assertEquals(6, hashTable.getSize());
+        assertEquals(20, hashTable.getCapacity());
+    }
+
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testInsertcollisionResolution() {
+        HashTable hashTable = new HashTable<>(10);
+        // Insert values that will certainly cause a collision
+        hashTable.insert(1, "value1");
+        hashTable.insert(11, "value11");
+        assertEquals("value1", hashTable.search(1));
+        assertEquals("value11", hashTable.search(11));
+    }
+
+    /**
+     * more hash2 testing
+     */ 
+    @Test
+    public void testSearchcollisionResolution() {
+        HashTable hashTable = new HashTable<>(10);
+        // Insert values that will certainly cause a collision
+        hashTable.insert(1, "value1");
+        hashTable.insert(11, "value11");
+        // Attempt to search for these values
+        assertEquals("value1", hashTable.search(1));
+        assertEquals("value11", hashTable.search(11));
+    }
+
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testDeletenormalCase() {
+        HashTable hashTable = new HashTable<>(10);
+        hashTable.insert(1, "value1");
+        assertEquals("value1", hashTable.delete(1));
+        assertNull(hashTable.search(1));
+    }
 
 }
