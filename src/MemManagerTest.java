@@ -119,7 +119,7 @@ public class MemManagerTest {
     
     
     /**
-     * TEsts the loop bounds
+     * Tests the loop bounds
      */
     @Test
     public void testLoopBounds() {
@@ -191,22 +191,48 @@ public class MemManagerTest {
     public void testRemoveMethodSizePowerComputation() {
         
         MemManager memManager = new MemManager(16);
-        // Step 1: Insert a record with 4 bytes of data
+        // Insert a record with 4 bytes of data
         byte[] dataToInsert = {1, 2, 3, 4};
         Handle handle = memManager.insert(dataToInsert, dataToInsert.length);
 
-        // Step 2: Retrieve and verify the size of the record using the length method
+        // Retrieve and verify the size of the record using the length method
         int initialLength = memManager.length(handle);
         assertEquals(4, initialLength);
 
-        // Step 3: Remove the record
+        // Remove the record
         memManager.remove(handle);
 
-        // Step 4: After removal, attempt to insert a record with 4 bytes of data and ensure it is inserted at the same startPosition as the previously removed record
+        // After removal, attempt to insert a record with 4 bytes of data and ensure it is inserted at the same startPosition as the previously removed record
         byte[] newDataToInsert = {5, 6, 7, 8};
         Handle newHandle = memManager.insert(newDataToInsert, newDataToInsert.length);
 
         assertEquals(handle.getStartPosition(), newHandle.getStartPosition());
+    }
+    
+    /**
+     * Test for the byte array contains 0's after removal
+     */
+    @Test
+    public void testRemoveMethodResetLoop() {
+        MemManager memManager = new MemManager(16);
+        
+        // Insert a record with 4 bytes of data
+        byte[] dataToInsert = {1, 2, 3, 4};
+        Handle handle = memManager.insert(dataToInsert, dataToInsert.length);
+
+        // Remove the record
+        memManager.remove(handle);
+
+        // Retrieve a record using the handle to a new byte array to ensure all bytes in the range have been reset to zero
+        byte[] dataAfterRemoval = new byte[4];
+        int bytesRead = memManager.get(dataAfterRemoval, handle, dataToInsert.length);
+        
+        // Verify that all bytes in the range have been reset to zero
+        byte[] expectedDataAfterRemoval = {0, 0, 0, 0};
+        assertArrayEquals(expectedDataAfterRemoval, dataAfterRemoval);
+        
+        // Verify that the number of bytes read is correct
+        assertEquals(dataToInsert.length, bytesRead);
     }
     
 }
