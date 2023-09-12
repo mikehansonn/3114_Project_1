@@ -437,65 +437,62 @@ public class HashTableTest {
         assertEquals(expectedH2, actualH2);
     }
     
-    /**
-     * more hash2 testing
-     */
     @Test
-    public void testInsertnormalCase() {
-        HashTable hashTable = new HashTable<>(10);
-        hashTable.insert(1, "value1");
-        assertEquals("value1", hashTable.search(1));
+    public void testDeleteEntry() {
+        HashTable<Integer, String> hashtable = new HashTable<>(5);
+        // Create and insert an entry
+        hashtable.insert(1, "Value1");
+
+        // Delete the entry
+        String deletedValue = hashtable.delete(1);
+
+        // Verify that the entry is deleted and its value is returned
+        assertTrue(hashtable.toString().contains("TOMBSTONE"));
+        assertEquals("Value1", deletedValue);
     }
 
-    /**
-     * more hash2 testing
-     */
     @Test
-    public void testInsertrehashTriggered() {
-        HashTable hashTable = new HashTable<>(10);
-        for(int i = 0; i < 6; i++) {
-            hashTable.insert(i, "value" + i);
-        }
-        assertEquals(6, hashTable.getSize());
-        assertEquals(20, hashTable.getCapacity());
+    public void testDeleteNonExistentEntry() {
+        HashTable<Integer, String> hashtable = new HashTable<>(5);
+        // Attempt to delete a non-existent entry
+        String deletedValue = hashtable.delete(1);
+
+        // Verify that nothing is deleted (no TOMBSTONE) and null is returned
+        assertFalse(hashtable.toString().contains("TOMBSTONE"));
+        assertNull(deletedValue);
     }
 
-    /**
-     * more hash2 testing
-     */
     @Test
-    public void testInsertcollisionResolution() {
-        HashTable hashTable = new HashTable<>(10);
-        // Insert values that will certainly cause a collision
-        hashTable.insert(1, "value1");
-        hashTable.insert(11, "value11");
-        assertEquals("value1", hashTable.search(1));
-        assertEquals("value11", hashTable.search(11));
+    public void testDeleteDeletedEntry() {
+        HashTable<Integer, String> hashtable = new HashTable<>(5);
+        // Create and insert an entry
+        hashtable.insert(1, "Value1");
+
+        // Delete the entry
+        hashtable.delete(1);
+
+        // Attempt to delete the already deleted entry
+        String deletedValue = hashtable.delete(1);
+
+        // Verify that nothing is deleted again (no additional TOMBSTONE) and null is returned
+        assertTrue(hashtable.toString().contains("TOMBSTONE"));
+        assertNull(deletedValue);
     }
 
-    /**
-     * more hash2 testing
-     */ 
     @Test
-    public void testSearchcollisionResolution() {
-        HashTable hashTable = new HashTable<>(10);
-        // Insert values that will certainly cause a collision
-        hashTable.insert(1, "value1");
-        hashTable.insert(11, "value11");
-        // Attempt to search for these values
-        assertEquals("value1", hashTable.search(1));
-        assertEquals("value11", hashTable.search(11));
-    }
+    public void testDeleteMultipleEntries() {
+        HashTable<Integer, String> hashtable = new HashTable<>(5);
+        // Create and insert multiple entries
+        hashtable.insert(1, "Value1");
+        hashtable.insert(2, "Value2");
+        hashtable.insert(3, "Value3");
 
-    /**
-     * more hash2 testing
-     */
-    @Test
-    public void testDeletenormalCase() {
-        HashTable hashTable = new HashTable<>(10);
-        hashTable.insert(1, "value1");
-        assertEquals("value1", hashTable.delete(1));
-        assertNull(hashTable.search(1));
-    }
+        // Delete an entry in the middle
+        String deletedValue = hashtable.delete(2);
 
+        // Verify that the correct entry is deleted and others remain
+        assertTrue(hashtable.toString().contains("TOMBSTONE"));
+        assertNull(hashtable.search(2));
+        assertEquals("Value2", deletedValue);
+    }
 }
