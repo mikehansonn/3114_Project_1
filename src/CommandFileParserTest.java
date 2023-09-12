@@ -24,7 +24,8 @@ public class CommandFileParserTest {
     }
 
     /**
-     * The test to read the commands, and then check to see if we have what we are
+     * The test to read the commands, 
+     * and then check to see if we have what we are
      * supposed to
      * 
      * @throws Exception if the file is not found

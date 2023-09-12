@@ -10,7 +10,7 @@ import org.junit.Test;
  * @version 9/11/23
  */
 public class HashTableTest {
-    HashTable<Integer, String> hTable;
+    private HashTable<Integer, String> hTable;
 
     /**
      * Setup the initial hashtable
@@ -70,7 +70,7 @@ public class HashTableTest {
         assertEquals(get, null);
     }
 
-    /*
+    /**
      * Test the OpenDSA example to ensure hashing is working correctly
      */
     @Test
@@ -85,7 +85,7 @@ public class HashTableTest {
         assertNotNull(hTable);
     }
 
-    /*
+    /**
      * Test the OpenDSA example to ensure hashing is working correctly
      */
     @Test
@@ -311,6 +311,130 @@ public class HashTableTest {
 
         // Verify that the element has been inserted at the expected position
         assertEquals(valueToInsert, hashTable.search(keyToInsert));
+    }
+    
+    /**
+     * Tests the first mutation test
+     */
+    @Test
+    public void testMutationCase1() {
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+        int key = 5;
+        int hash2 = hashTable.hash2(key);
+        int hash1 = key % hashTable.getCapacity();
+        int mutatedHash1 = 
+                (hash1 + hash2) % hashTable.getCapacity();
+
+        hashTable.insert(key, "Value");
+
+        assertEquals(mutatedHash1, hashTable.hash1(key) + 1);
+    }
+
+    /**
+     * Tests the third mutation test
+     */
+    @Test
+    public void testMutationCase3() {
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+        
+        int key = 7;
+        int hash1 = hashTable.hash1(key); // Calculate hash1 for the key.
+        int mutatedHash2 = 
+                (((key / hashTable.getCapacity()) %
+                        (hashTable.getCapacity() / 2)) * 2) + 1;
+
+        assertEquals(mutatedHash2, hashTable.hash2(key));
+    }
+
+    /**
+     * Tests the 2nd and fourth mutation test
+     */
+    @Test
+    public void testMutationCase2And4() {
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+        int key1 = 2;
+        int key2 = 12; // Key that will result in the same hash1 after mutation.
+
+        hashTable.insert(key1, "Value1");
+        hashTable.insert(key2, "Value2");
+
+        assertEquals("Value1", hashTable.search(key1));
+        assertEquals("Value2", hashTable.search(key2));
+
+        assertEquals(2, hashTable.getSize());
+    }
+
+    /**
+     * hash2 testing
+     */
+    @Test
+    public void hash2Tests() {
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+        int basic = hashTable.hash2(5);
+        assertEquals(1, basic);
+        int pos = hashTable.hash2(10);
+        assertEquals(3, pos);
+        int neg = hashTable.hash2(-5);
+        assertEquals(1, neg);
+        int large = hashTable.hash2(1000000);
+        assertEquals(1, large);
+        int zeroKey = hashTable.hash2(0);
+        assertEquals(1, zeroKey);
+        int overflow = hashTable.hash2(Integer.MAX_VALUE);
+        assertEquals(9, overflow);
+        HashTable<Integer, String> oddTable = new HashTable<>(5);
+        int oddTableInt = oddTable.hash2(5);
+        assertEquals(3, oddTableInt);
+    }
+    
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testMutant1() {
+        // Create a HashTable
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+
+        // Insert some data
+        hashTable.insert(5, "Value1");
+        hashTable.insert(10, "Value2");
+
+        // Calculate the expected h2 value
+        int key = 5; // Replace with a non-zero key value
+        int expectedH2 = 
+                (((key / hashTable.getCapacity()) % 
+                        (hashTable.getCapacity() / 2)) * 2) + 1;
+
+        // Calculate the actual h2 value using the mutant
+        int actualH2 = hashTable.hash2(key);
+
+        // Assert that the actual h2 value matches the expected value
+        assertEquals(expectedH2, actualH2);
+    }
+
+    /**
+     * more hash2 testing
+     */
+    @Test
+    public void testMutant2() {
+        // Create a HashTable
+        HashTable<Integer, String> hashTable = new HashTable<>(10);
+
+        // Insert some data
+        hashTable.insert(5, "Value1");
+        hashTable.insert(10, "Value2");
+
+        // Calculate the expected h2 value
+        int key = 5;
+        int expectedH2 = 
+                (((key / hashTable.getCapacity()) % 
+                        (hashTable.getCapacity() / 2)) * 2) + 1;
+
+        // Calculate the actual h2 value using the mutant
+        int actualH2 = hashTable.hash2(key);
+
+        // Assert that the actual h2 value matches the expected value
+        assertEquals(expectedH2, actualH2);
     }
 
 }

@@ -62,7 +62,8 @@ public class SemManager {
             int id, Seminar seminar) throws Exception {
         if (hashTable.search(id) != null) {
             System.out.println(
-                    "Insert FAILED - There " + "is already a record with ID " + id);
+                    "Insert FAILED - There " 
+                    + "is already a record with ID " + id);
             return;
         }
         // if this id is already inserted, stop.
@@ -91,7 +92,8 @@ public class SemManager {
             return;
         }
         System.out.println(
-                "Record with ID " + id + " successfully deleted from the database");
+                "Record with ID " + id + 
+                " successfully deleted from the database");
         memoryManager.remove(handle);
     }
 
@@ -141,7 +143,8 @@ public class SemManager {
 
         // This is the main file for the program.
         // commands = insert, delete, search, print
-        SemManager semManager = new SemManager(initialMemorySize, initialHashSize);
+        SemManager semManager = 
+                new SemManager(initialMemorySize, initialHashSize);
         CommandFileParser parser = new CommandFileParser(args[2], semManager);
         parser.readCommands();
     }

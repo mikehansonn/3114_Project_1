@@ -163,7 +163,8 @@ public class HashTable<K, V> {
                 if (table[i].getIsDeleted()) {
                     String add = i + ": " + "TOMBSTONE" + "\n";
                     ret += add;
-                } else {
+                } 
+                else {
                     String add = i + ": " + table[i].getKey() + "\n";
                     ret += add;
                 }
