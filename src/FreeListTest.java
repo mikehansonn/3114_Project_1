@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * JUnit tests for the FreeList
  * 
- * @author mikehanson and matt02
+ * @author matt02
  * @version 9/11/23
  */
 public class FreeListTest {
@@ -180,39 +180,45 @@ public class FreeListTest {
      * Test Double merge
      */
     @Test
-    public void testMergeBlock_ArithmeticOperationReplacedWithFirstMember() {
+    public void testMergeBlockArithmeticOperationReplacedWithFirstMember() {
         
         FreeList freeList1 = new FreeList(4);
-        // Initial setup to create a scenario where the doubleMemory method will be invoked
+        // Initial setup to create a scenario 
+        //where the doubleMemory method will be invoked
         freeList1.doubleMemory(); 
         freeList1.addBlock(4);
-        freeList1.deallocateBlock(4, 0); // Deallocating a block to allow potential merge in doubleMemory method
+        freeList1.deallocateBlock(4, 0); 
+        // Deallocating a block to allow potential merge in doubleMemory method
 
         // Double the memory to invoke the method where mergedBlock is created
         freeList1.doubleMemory(); 
 
         String freeListStr = freeList1.toString();
         System.out.println(freeListStr);
-        assertTrue(freeListStr.contains("64: 0")); // The merged block should have size 64 (2^6), and start at position 0
+        assertTrue(freeListStr.contains("64: 0")); 
+        // The merged block should have size 64 (2^6), and start at position 0
     }
     
     /**
      * Test Double merge
      */
     @Test
-    public void testMergeBlock_ArithmeticOperationReplacedWithSecondMember() {
-        // Initial setup to create a scenario where the doubleMemory method will be invoked
+    public void testMergeBlockArithmeticOperationReplacedWithSecondMember() {
+        // Initial setup to create a scenario 
+        //where the doubleMemory method will be invoked
         
         FreeList freeList1 = new FreeList(4);
         freeList1.doubleMemory(); 
         freeList1.addBlock(4);
-        freeList1.deallocateBlock(4, 16); // Deallocating a block to allow potential merge in doubleMemory method
+        freeList1.deallocateBlock(4, 16); 
+        // Deallocating a block to allow potential merge in doubleMemory method
 
         // Double the memory to invoke the method where mergedBlock is created
         freeList1.doubleMemory(); 
 
         String freeListStr = freeList1.toString();
-        assertFalse(freeListStr.contains("32: 0")); // Ensure that a block with incorrect size (32) is not created
+        assertFalse(freeListStr.contains("32: 0")); 
+        // Ensure that a block with incorrect size (32) is not created
     }
 
 }

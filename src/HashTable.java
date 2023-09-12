@@ -61,7 +61,7 @@ public class HashTable<K, V> {
                 return; // this record already exists
             }
 
-            hash1 = (hash1 + hash2) % table.length;
+            hash1 = loopHash(hash1, hash2);
         }
 
         table[hash1] = new Entry<>(key, value);
@@ -83,7 +83,7 @@ public class HashTable<K, V> {
                 return table[hash1].getValue();
             }
 
-            hash1 = (hash1 + hash2) % table.length;
+            hash1 = loopHash(hash1, hash2);
         }
 
         return null; // if the index is not found
@@ -106,7 +106,7 @@ public class HashTable<K, V> {
                 return table[hash1].getValue();
             }
 
-            hash1 = (hash1 + hash2) % table.length;
+            hash1 = loopHash(hash1, hash2);
         }
         return null;
     }
@@ -131,6 +131,11 @@ public class HashTable<K, V> {
         int h2 = (((key / table.length) % (table.length / 2)) * 2) + 1;
         return h2 % table.length;
     }
+    
+    private int loopHash(int hash1, int hash2) {
+        return (hash1 + hash2) % table.length;
+    }
+            
 
     /**
      * Resize the table if it runs out of space

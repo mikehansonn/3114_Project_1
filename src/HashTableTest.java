@@ -424,73 +424,68 @@ public class HashTableTest {
         hashTable.insert(5, "Value1");
         hashTable.insert(10, "Value2");
 
-        // Calculate the expected h2 value
         int key = 5;
         int expectedH2 = 
                 (((key / hashTable.getCapacity()) % 
                         (hashTable.getCapacity() / 2)) * 2) + 1;
 
-        // Calculate the actual h2 value using the mutant
         int actualH2 = hashTable.hash2(key);
 
-        // Assert that the actual h2 value matches the expected value
         assertEquals(expectedH2, actualH2);
     }
     
+    /**
+     * Tests the delete cases
+     */
     @Test
     public void testDeleteEntry() {
         HashTable<Integer, String> hashtable = new HashTable<>(5);
-        // Create and insert an entry
         hashtable.insert(1, "Value1");
 
-        // Delete the entry
         String deletedValue = hashtable.delete(1);
-
-        // Verify that the entry is deleted and its value is returned
+        
         assertTrue(hashtable.toString().contains("TOMBSTONE"));
         assertEquals("Value1", deletedValue);
     }
 
+    /**
+     * Tests the delete cases
+     */
     @Test
     public void testDeleteNonExistentEntry() {
         HashTable<Integer, String> hashtable = new HashTable<>(5);
-        // Attempt to delete a non-existent entry
         String deletedValue = hashtable.delete(1);
-
-        // Verify that nothing is deleted (no TOMBSTONE) and null is returned
         assertFalse(hashtable.toString().contains("TOMBSTONE"));
         assertNull(deletedValue);
     }
 
+    /**
+     * Tests the delete cases
+     */
     @Test
     public void testDeleteDeletedEntry() {
         HashTable<Integer, String> hashtable = new HashTable<>(5);
         // Create and insert an entry
         hashtable.insert(1, "Value1");
-
-        // Delete the entry
         hashtable.delete(1);
 
-        // Attempt to delete the already deleted entry
         String deletedValue = hashtable.delete(1);
-
-        // Verify that nothing is deleted again (no additional TOMBSTONE) and null is returned
         assertTrue(hashtable.toString().contains("TOMBSTONE"));
         assertNull(deletedValue);
     }
 
+    /**
+     * Tests the delete cases
+     */
     @Test
     public void testDeleteMultipleEntries() {
         HashTable<Integer, String> hashtable = new HashTable<>(5);
-        // Create and insert multiple entries
         hashtable.insert(1, "Value1");
         hashtable.insert(2, "Value2");
         hashtable.insert(3, "Value3");
 
-        // Delete an entry in the middle
         String deletedValue = hashtable.delete(2);
 
-        // Verify that the correct entry is deleted and others remain
         assertTrue(hashtable.toString().contains("TOMBSTONE"));
         assertNull(hashtable.search(2));
         assertEquals("Value2", deletedValue);

@@ -4,7 +4,7 @@ import org.junit.Test;
 /**
  * JUnit tests for the FreeList
  * 
- * @author mikehanson and matt02
+ * @author matt02
  * @version 9/11/23
  */
 public class MemManagerTest {
@@ -167,20 +167,15 @@ public class MemManagerTest {
      */
     @Test
     public void testNegativeSize() {
-        // Create a MemManager instance and a Handle with a known size
         MemManager memManager = new MemManager(1024);
         Handle handle = memManager.insert(new byte[8], 8);
 
-        // Set the Handle's size to a negative value
         handle.setLength(-5); // Mutated size
 
-        // Create a test array (it won't be modified in this case)
         byte[] testArray = new byte[8];
 
-        // Attempt to retrieve data from the mutated Handle
         int copiedBytes = memManager.get(testArray, handle, 8);
 
-        // Ensure that the loop didn't iterate (size is negative)
         assertEquals(8, copiedBytes);
     }
     
@@ -193,18 +188,18 @@ public class MemManagerTest {
         MemManager memManager = new MemManager(16);
         // Insert a record with 4 bytes of data
         byte[] dataToInsert = {1, 2, 3, 4};
-        Handle handle = memManager.insert(dataToInsert, dataToInsert.length);
+        Handle handle = 
+                memManager.insert(dataToInsert, dataToInsert.length);
 
-        // Retrieve and verify the size of the record using the length method
         int initialLength = memManager.length(handle);
         assertEquals(4, initialLength);
 
         // Remove the record
         memManager.remove(handle);
-
-        // After removal, attempt to insert a record with 4 bytes of data and ensure it is inserted at the same startPosition as the previously removed record
+        
         byte[] newDataToInsert = {5, 6, 7, 8};
-        Handle newHandle = memManager.insert(newDataToInsert, newDataToInsert.length);
+        Handle newHandle = 
+                memManager.insert(newDataToInsert, newDataToInsert.length);
 
         assertEquals(handle.getStartPosition(), newHandle.getStartPosition());
     }
@@ -218,20 +213,17 @@ public class MemManagerTest {
         
         // Insert a record with 4 bytes of data
         byte[] dataToInsert = {1, 2, 3, 4};
-        Handle handle = memManager.insert(dataToInsert, dataToInsert.length);
+        Handle handle = 
+                memManager.insert(dataToInsert, dataToInsert.length);
 
-        // Remove the record
         memManager.remove(handle);
 
-        // Retrieve a record using the handle to a new byte array to ensure all bytes in the range have been reset to zero
         byte[] dataAfterRemoval = new byte[4];
         int bytesRead = memManager.get(dataAfterRemoval, handle, dataToInsert.length);
         
-        // Verify that all bytes in the range have been reset to zero
         byte[] expectedDataAfterRemoval = {0, 0, 0, 0};
         assertArrayEquals(expectedDataAfterRemoval, dataAfterRemoval);
         
-        // Verify that the number of bytes read is correct
         assertEquals(dataToInsert.length, bytesRead);
     }
     
