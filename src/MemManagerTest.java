@@ -183,4 +183,27 @@ public class MemManagerTest {
         // Ensure that the loop didn't iterate (size is negative)
         assertEquals(8, copiedBytes);
     }
+    
+    @Test
+    public void testRemoveMethodSizePowerComputation() {
+        
+        MemManager memManager = new MemManager(16);
+        // Step 1: Insert a record with 4 bytes of data
+        byte[] dataToInsert = {1, 2, 3, 4};
+        Handle handle = memManager.insert(dataToInsert, dataToInsert.length);
+
+        // Step 2: Retrieve and verify the size of the record using the length method
+        int initialLength = memManager.length(handle);
+        assertEquals(4, initialLength);
+
+        // Step 3: Remove the record
+        memManager.remove(handle);
+
+        // Step 4: After removal, attempt to insert a record with 4 bytes of data and ensure it is inserted at the same startPosition as the previously removed record
+        byte[] newDataToInsert = {5, 6, 7, 8};
+        Handle newHandle = memManager.insert(newDataToInsert, newDataToInsert.length);
+
+        assertEquals(handle.getStartPosition(), newHandle.getStartPosition());
+    }
+    
 }
