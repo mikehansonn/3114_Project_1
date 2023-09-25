@@ -220,5 +220,4 @@ public class FreeListTest {
         assertFalse(freeListStr.contains("32: 0")); 
         // Ensure that a block with incorrect size (32) is not created
     }
-
 }

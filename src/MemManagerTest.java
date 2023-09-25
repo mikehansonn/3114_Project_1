@@ -219,7 +219,8 @@ public class MemManagerTest {
         memManager.remove(handle);
 
         byte[] dataAfterRemoval = new byte[4];
-        int bytesRead = memManager.get(dataAfterRemoval, handle, dataToInsert.length);
+        int bytesRead = memManager.get(
+                dataAfterRemoval, handle, dataToInsert.length);
         
         byte[] expectedDataAfterRemoval = {0, 0, 0, 0};
         assertArrayEquals(expectedDataAfterRemoval, dataAfterRemoval);
